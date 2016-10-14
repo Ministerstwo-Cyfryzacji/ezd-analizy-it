@@ -20,17 +20,64 @@ Narzędziem pozwalającym zyskać niemal stuprocentową pewność co do nienarus
 Wymóg publikacji
 ----------------
 
-Weryfikacja istnienia dokumentu w danym punkcie czasu za pomocą funkcji skrótu wymaga, aby wartość tej funkcji dla danego dokumentu była znana w tym punkcie. Dokument `„Keyless Signatures’ Infrastructure: How to Build Global Distributed Hash-Trees”`_ (suma kontrolna SHA256: ``422b8a0be599660503ae289977b2bda174c81e6fab486db5ef03934c1d1cf151``) opisuje, jak dzięki agregacji można spełnić ten wymóg publikując tylko pojedyncze wartości dla praktycznie nieograniczonych zbiorów różnych danych. Publikacja powinna nastąpić w szeroko dostępnym medium, w którym podmiana danych jest bądź to niemożliwa, bądź łatwa do wykrycia. Można wśród nich wymienić:
+Weryfikacja istnienia dokumentu w danym punkcie czasu za pomocą funkcji skrótu wymaga, aby wartość tej funkcji dla danego dokumentu była znana w tym punkcie.
+ Dokument `„Keyless Signatures’ Infrastructure: How to Build Global Distributed Hash-Trees”`_ (suma kontrolna SHA256: ``422b8a0be599660503ae289977b2bda174c81e6fab486db5ef03934c1d1cf151``) opisuje, jak dzięki agregacji można spełnić ten wymóg publikując tylko pojedyncze wartości dla praktycznie nieograniczonych zbiorów różnych danych. Publikacja powinna nastąpić w szeroko dostępnym medium, w którym podmiana danych jest bądź to niemożliwa, bądź łatwa do wykrycia. Można wśród nich wymienić:
 
 * gazetę;
 * publicznie dostępne repozytorium Git_;
 * łańcuch bloków określonej kryptowaluty (z wykorzystaniem kodu `OP_RETURN`_).
 
-Propozycja rozwiązania dla EZD RP
----------------------------------
 
-Przedstawimy teoretyczny prototyp bazy danych odwzorowującej obieg dokumentów kancelaryjnych i zawierającej w sobie funkcjonalność łańcucha sum kontrolnych, opierając się na systemie kontroli wersji Git_. Odwzorujemy uproszczoną strukturę danych opartą na następujących założeniach:
+Proponowane rozwiązanie dla EZD RP
+----------------------------------
 
+Założenia
+~~~~~~~~~
+
+Odseparowanie:
+
+* operacyjnej bazy danych, używanej w bieżącej działalności Urzędu,
+* zbioru dokumentów, których racją istnienia jest umożliwienie - w razie takiej konieczności - udowodnienia, iż w pewnym momencie istniał konkretny stan danych.
+
+Tą drugą kolekcję danych nazwiemy "Repozytorium audycyjne" (RA), w odróżnieniu od głównej bazy operacyjnej, nazywanej po prostu bazą danych (BD).
+
+Jedna instalacja systemu EZD zawiera dokładnie jedną BD i jedno RA.
+
+Baza danych
+~~~~~~~~~~~
+
+Budowa bazy danych nie jest przedmiotem tego dokumentu. Zakładamy jedynie, że wśród czynności Urzędu powodujących zmiany w BD, wyróżnimy takie, które są istotne
+z prawnego punktu widzenia, np.
+
+* pojawienie się nowego pliku, sprawy
+* decyzja
+* zmiana uprawnień pracownika
+* itp.
+
+Tego rodzaju "wydarzenia" będziemy chcieli odwzorować w Repozytorium Audycyjnym.
+
+Repozytorium audycyjne
+~~~~~~~~~~~~~~~~~~~~~~
+
+Otrzymuje z BD informacje (wszystkie nazywane tu "dokumentami").
+
+Dla każdego dokumentu obliczana jest suma kontrolna ("hasz") -- identyfikator, np. 32 bajtowy, który jest unikalnym identyfikatorem tego dokumentu; zakładamy że prawdopodobieństwo
+iż dwa różne dokumenty będą miały tę samą wartość hasza jest pomijalnie małe.
+
+Repozytorium przechowuje też własny hasz, który może być interpretowany jako "bieżący stan repozytorium". Gdy zostanie dostarczony nowy dokument, obliczany jest nowy stan repozytorium,
+który jest wartością hasza obliczoną dla połączenia hasza stanu repozytorium z haszem nowodostarczonego dokumentu. Ilustruje to rysunek.
+
+.. image:: images/repozytorium_i_baza_danych.png
+
+Repozytorium audycyjne nie odwzorowuje wprost informacji o strukturze wiedzy w BD. W szczególności, związki pomiędzy pismami a sprawami, związki między różnymi wersjami tego samego pisma,
+urzędowe znaki nadane pismom i sprawom, decyzje w sprawach itd. są pamiętane w postaci pojedynczych dokumentów, pamiętających pojedyncze opisy lub decyzje.
+
+Inne rozwiązanie
+----------------
+
+Alternatywne rozwiązanie można zrobić, opierając się na systemie kontroli wersji Git_ i zapisując w repozytorium dokumenty / sprawy.
+Odwzorujemy uproszczoną strukturę danych opartą na następujących założeniach:
+ 
 1. Podstawowym, niepodzielnym obiektem jest dokument.
 2. Sprawy to ciągi dokumentów. Dekretacje, akceptacje, informacje o udzieleniu dostępu do dokumentów itp. traktujemy w tym ujęciu bądź jako część dokumentów nich dotyczących, bądź jako oddzielne dokumenty.
 3. Sprawom nadaje się znaki[#skladowe-znaku-sprawy]_.
