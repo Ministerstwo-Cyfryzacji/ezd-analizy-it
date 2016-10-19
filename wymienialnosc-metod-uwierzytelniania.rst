@@ -1,15 +1,15 @@
-Wymienialność metod identyfikacji
+Wymienialność metod uwierzytelniania
 =================================
 
 Wstęp
 -----
 
-Dokument przedstawia kwestie związane z bezpieczeństwem i wygodą różnych metod identyfikacji, krytykując identyfikację za pomocą hasła i postulując zaprojektowanie systemu EZD w sposób na tyle elastyczny, aby pozwalał on na zastosowanie innych metod.
+Dokument przedstawia kwestie związane z bezpieczeństwem i wygodą różnych metod uwierzytelniania, krytykując uwierzytelnianie za pomocą hasła i postulując zaprojektowanie systemu EZD w sposób na tyle elastyczny, aby pozwalał on na zastosowanie innych metod.
 
 Identyfikacja za pomocą hasła
 -----------------------------
 
-We współczesnych systemach informatycznych nadal najbardziej popularną metodą identyfikacji jest zastosowanie hasła. W dobrze zabezpieczonych systemach hasło jest zapisywane z bazie serwisu w postaci praktycznie uniemożliwiającej jego odszyfrowanie. Często stosuje się również dodatkową warstwę zabezpieczeń w postaci weryfikacji dwuetapowej. Tym samym zabezpieczenie procesu identyfikacji opiera się na dwóch filarach: tym, co użytkownik wie (hasło) i tym, co posiada (klucz TOTP_). Taki sposób identyfikacji posiada szereg wad:
+We współczesnych systemach informatycznych nadal najbardziej popularną metodą uwierzytelniania jest zastosowanie hasła. W dobrze zabezpieczonych systemach hasło jest zapisywane z bazie serwisu w postaci praktycznie uniemożliwiającej jego odszyfrowanie. Często stosuje się również dodatkową warstwę zabezpieczeń w postaci weryfikacji dwuetapowej. Tym samym zabezpieczenie procesu uwierzytelniania opiera się na dwóch filarach: tym, co użytkownik wie (hasło) i tym, co posiada (klucz TOTP_). Taki sposób uwierzytelniania posiada szereg wad:
 
 1. Choć hasło w dobrze zabezpieczonym serwisie jest przesyłane przez sieć w postaci zaszyfrowanej, a także trafia do bazy danych po jednostronnym zaszyfrowaniu, to pomiędzy tymi dwoma czynnościami znajduje się ono w pamięci serwera w postaci odszyfrowanej.
 2. Użytkownikowi nie można udowodnić, że jego hasło jest faktycznie przechowywane w bazie danych w sposób niemożliwy do odszyfrowania.
@@ -19,16 +19,16 @@ We współczesnych systemach informatycznych nadal najbardziej popularną metod�
 6. `Rozporządzenie Ministra Spraw Wewnętrznych i Administracji w sprawie dokumentacji przetwarzania danych osobowych oraz warunków technicznych i organizacyjnych,jakim powinny odpowiadać urządzenia i systemy informatyczne służące do przetwarzania danych osobowych`_ nakłada obostrzenia na politykę zarządzania hasłami w niektórych systemach, co stanowi dodatkowe niedogodności.
 7. Jeśli użytkownik, rezygnując z zapamiętywania wszystkich haseł, zaczyna korzystać z menedżera haseł, to wystawia się na inne zagrożenia w przypadku, gdy menedżer haseł nie jest zabezpieczony właściwie[#bezpieczenstwo-menedzerow-hasel]_.
 8. Poszczególne serwisy internetowe mogą wyłączać autouzupełnianie haseł[#atrybut-autocomplete]_ (takie rozwiązanie stosuje m.in. ePUAP), co uniemożliwia wygodne stosowanie menedżerów haseł.
-9. Menedżery haseł wbudowane w przeglądarki częstokroć nie aktywują domyślnie szyfrowania haseł za pomocą hasła głównego, co sprowadza zabezpieczenie identyfikacji do jednego filaru (to, co użytkownik posiada).
+9. Menedżery haseł wbudowane w przeglądarki częstokroć nie aktywują domyślnie szyfrowania haseł za pomocą hasła głównego, co sprowadza zabezpieczenie uwierzytelniania do jednego filaru (to, co użytkownik posiada).
 10. Identyfikacja za pomocą hasła wymaga zazwyczaj, aby przed wysłaniem do serwera znajdowało się ono na komputerze użytkownika w postaci niezaszyfrowanej, co ułatwia jego wykradzenie (np. za pomocą programów typu keylogger).
 11. Jeżeli użytkownik nieopatrznie zaloguje się po HTTP na oszukańczą stronę udającą prawdziwy serwis, to oznacza to złamanie części zabezpieczenia oferowanej w tym przypadku przez hasło.
 
 Identyfikacja za pomocą kryptografii asymetrycznej
 --------------------------------------------------
 
-Metody identyfikacji wykorzystujące kryptografię asymetryczną pozwalają na uniknięcie wielu problemów związanych z hasłami:
+Metody uwierzytelniania wykorzystujące kryptografię asymetryczną pozwalają na uniknięcie wielu problemów związanych z hasłami:
 
-1. Informacja wrażliwa (prywatny klucz kryptograficzny) nigdy nie jest przesyłana przez sieć, a zatem jedyną możliwością dla atakującego jest włamanie na urządzenie użytkownika. Biorąc pod uwagę to, że w skrajnych przypadkach może on wykorzystywać oddzielne urządzenie wyłącznie na potrzeby identyfikacji, czyni to potencjalne ataki dużo trudniejszymi.
+1. Informacja wrażliwa (prywatny klucz kryptograficzny) nigdy nie jest przesyłana przez sieć, a zatem jedyną możliwością dla atakującego jest włamanie na urządzenie użytkownika. Biorąc pod uwagę to, że w skrajnych przypadkach może on wykorzystywać oddzielne urządzenie wyłącznie na potrzeby uwierzytelniania, czyni to potencjalne ataki dużo trudniejszymi.
 2. Prywatne klucze kryptograficzne można dodatkowo zaszyfrować za pomocą hasła, osiągając w ten sposób poziom zabezpieczeń oparty o dwa wymienione wcześniej filary.
 3. Identyfikacja za pomocą kryptografii asymetrycznej jest wygodniejsza (nie wymaga ręcznego przepisywania kodów TOTP).
 
@@ -43,7 +43,7 @@ Wśród tych metod można wymienić.
 Identyfikacja w systemach EZD
 -----------------------------
 
-W kontekście systemów EZD można w naturalny sposób wskazać następujące potencjalne metody identyfikacji jako zastępniki identyfikacji za pomocą hasła:
+W kontekście systemów EZD można w naturalny sposób wskazać następujące potencjalne metody uwierzytelniania jako zastępniki uwierzytelniania za pomocą hasła:
 
 1. Podpis kwalifikowany.
 2. Cyfrowa tożsamość — w przypadku, gdyby taka usługa, oferująca funkcjonalność podpisu, została wprowadzona przez rząd.
@@ -55,7 +55,7 @@ Z powyższych metod wyróżnić należy podpis kwalifikowany, jako że i tak pra
 Wnioski
 -------
 
-Identyfikacja za pomocą hasła jest metodą dość prymitywną i problematyczną. W projektowaniu systemów EZD warto uwzględniać możliwość identyfikacji za pomocą bardziej zaawansowanych technicznie i prostych w użyciu metod, m.in. tych, które wykorzystują kryptografię asymetryczną. Architektura systemu EZD powinna umożliwiać łatwe dodawanie nowych metod identyfikacji.
+Identyfikacja za pomocą hasła jest metodą dość prymitywną i problematyczną. W projektowaniu systemów EZD warto uwzględniać możliwość uwierzytelniania za pomocą bardziej zaawansowanych technicznie i prostych w użyciu metod, m.in. tych, które wykorzystują kryptografię asymetryczną. Architektura systemu EZD powinna umożliwiać łatwe dodawanie nowych metod uwierzytelniania.
 
 .. [#bezpieczenstwo-menedzerow-hasel]
    Na ten temat zob. m.in.:
