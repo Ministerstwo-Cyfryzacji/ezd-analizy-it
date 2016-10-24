@@ -63,14 +63,14 @@ Uwagi
 
 Daty zawarte w dokumentach nie mają (nie powinny mieć) większego znaczenia prawnego — znaczenie mają obiektywne daty wynikające z KSI bądź z innej usługi oznaczającej dokumenty czasem.
 
-Nie da się efektywnie (w sposób dowodliwy) kontrolować dostępu do danych, w związku z czym rdzeń systemu nie zawiera informacyj o tym, kto kiedy jaki dokument otrzymał. Można takie informacje przechowywać niezależnie, w celach poglądowych lub jeśli taka potrzeba wynika z obowiązujących przepisów. Można też w ramach systemu wytwarzać pokwitowania dostępu do dokumentów (być może jako szczególny, wydzielony typ dokumentu w aktach spraw/wydzielonym rejestrze).
+Nie da się efektywnie (w sposób dowodliwy) kontrolować dostępu do danych, w związku z czym rdzeń systemu nie zawiera informacji o tym, kto kiedy jaki dokument otrzymał. Można takie informacje przechowywać niezależnie, w celach poglądowych lub jeśli taka potrzeba wynika z obowiązujących przepisów. Można też w ramach systemu wytwarzać pokwitowania dostępu do dokumentów (być może jako szczególny, wydzielony typ dokumentu w aktach spraw/wydzielonym rejestrze).
 
 Można wyobrazić sobie pracę w systemie EZD nad sprawami pobranymi już na komputer urzędnika w trybie offline, podobnie jak można pracować z Gitem w trybie offline. Można też rozważać częściową synchronizację prac z pominięciem centralnego serwera, w przypadku awarii tegoż.
 
-.. _ciągliwość transakcyj: https://en.bitcoin.it/wiki/Transaction_Malleability
+.. _ciągliwość transakcji: https://en.bitcoin.it/wiki/Transaction_Malleability
 
 .. [#ciagliwosc-dokumentow]
-   Por. `ciągliwość transakcyj`_ w Bitcoinie.
+   Por. `ciągliwość transakcji`_ w Bitcoinie.
 
 .. [#przyklad-pliku-wieloformatowego]
    Korzystając z narzędzia Pandoc_ możemy tego dokonać następująco::

@@ -89,7 +89,7 @@ Dokument wyabstrahowany z kontekstu sprawy bądź rejestru możemy w repozytoriu
 
 Odwzorowawszy tym samym statyczny stan systemu EZD, możemy przejść do odwzorowywania zmian i zapewniania nienaruszalności danych.
 
-Przyjmijmy, że chcemy, aby liczba operacji haszujących potrzebnych do zweryfikowania integralności danej sprawy nie zależała w istotnym stopniu od ogólnej aktywności w repozytorium między wprowadzaniem poszczególnych dokumentów. Możemy to osiągnąć poprzez wykonywanie operacyj na danej sprawie na oddzielnej gałęzi (ang. „branch”). Gałąź ta byłaby regularnie włączana do głównej gałęzi bądź to bezpośrednio, bądź to z wykorzystaniem gałęzi pośrednich obejmujących np. określoną komórkę organizacyjną, określoną klasyfikację JRWA czy też określoną kombinację komórki organizacyjnej, roku kalendarzowego i klasyfikacji JRWA (w ramach której nadawane są kolejne numery spraw).
+Przyjmijmy, że chcemy, aby liczba operacji haszujących potrzebnych do zweryfikowania integralności danej sprawy nie zależała w istotnym stopniu od ogólnej aktywności w repozytorium między wprowadzaniem poszczególnych dokumentów. Możemy to osiągnąć poprzez wykonywanie operacji na danej sprawie na oddzielnej gałęzi (ang. „branch”). Gałąź ta byłaby regularnie włączana do głównej gałęzi bądź to bezpośrednio, bądź to z wykorzystaniem gałęzi pośrednich obejmujących np. określoną komórkę organizacyjną, określoną klasyfikację JRWA czy też określoną kombinację komórki organizacyjnej, roku kalendarzowego i klasyfikacji JRWA (w ramach której nadawane są kolejne numery spraw).
 
 Istnienie wkładów łączących (ang. „merge commits”) odkładanych na głównej gałęzi byłoby regularnie potwierdzane w zewnętrznej usłudze (vide „Wymóg publikacji”). Po potwierdzeniu istnienia wkładu byłby on oznaczany etykietą z adnotacją (ang. „annotated tag”), przy czym w treści adnotacji byłyby zawarte informacje potrzebne do weryfikacji poprawności potwierdzenia. Do weryfikacji istnienia określonego stanu sprawy w określonym punkcie czasu przez obywatela wystarczyłyby zatem:
 
@@ -115,7 +115,7 @@ Innym podejściem do zapewnienia nienaruszalności danych jest zabezpieczenie po
 
 1. Zapewnienie nienaruszalności danych to pożądana funkcjonalność, która jednak nie jest dostępna w większości baz danych. Przypuszczalnie wdrożanie jej nie jest łatwe.
 2. Zapewnienie nienaruszalności całej bazy danych może prowadzić do nadmiarowości, tj. do ochrony danych, które takiej ochrony nie potrzebują, i tym samym do zbyt dużego wykorzystania przestrzeni dyskowej.
-3. Przywiązanie do konkretnej technologii bazodanowej mogłoby utrudnić wprowadzenie standardu EZD określającego format eksportu i importu oraz sposób weryfikacji danych systemu kancelaryjnego. Wprowadzenie takiego standardu (podobnie jak w świecie kryptowalut istnieje standard określający format transakcyj i bloków) mogłoby pozwolić na przeprowadzanie eksportu i importu między różnymi systemami EZD z zachowaniem weryfikowalności danych.
+3. Przywiązanie do konkretnej technologii bazodanowej mogłoby utrudnić wprowadzenie standardu EZD określającego format eksportu i importu oraz sposób weryfikacji danych systemu kancelaryjnego. Wprowadzenie takiego standardu (podobnie jak w świecie kryptowalut istnieje standard określający format transakcji i bloków) mogłoby pozwolić na przeprowadzanie eksportu i importu między różnymi systemami EZD z zachowaniem weryfikowalności danych.
 
 Rzetelna ocena problemów i szans związanych z zapewnieniem nienaruszalności całej bazy danych wymagałaby oddzielnej analizy.
 
@@ -125,7 +125,7 @@ Słabe strony
 Możliwość tworzenia wersyj równoległych
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-System KSI pozwala na udowodnienie, że określony stan bazy danych istniał w konkretnym czasie, ale nie pozwala sam w sobie na udowodnienie, że był on „obowiązujący”. Administrator o złych intencjach mógłby tworzyć równoległe wersje tej samej bazy danych i wysyłać do potwierdzenia za pomocą KSI wszystkie (jako że wysyłane są tylko wartości funkcyj skrótu, to taki konflikt nie zostałby wykryty). Możliwości takie można zniwelować poprzez:
+System KSI pozwala na udowodnienie, że określony stan bazy danych istniał w konkretnym czasie, ale nie pozwala sam w sobie na udowodnienie, że był on „obowiązujący”. Administrator o złych intencjach mógłby tworzyć równoległe wersje tej samej bazy danych i wysyłać do potwierdzenia za pomocą KSI wszystkie (jako że wysyłane są tylko wartości funkcji skrótu, to taki konflikt nie zostałby wykryty). Możliwości takie można zniwelować poprzez:
 
 1. Publikację wartości funkcji skrótu odzwierciedlającej stan bazy danych z pominięciem systemu KSI, w medium pozwalającym na przypisanie tej wartości do określonego urzędu (np. ogłoszenie w gazecie, repozytorium Git będące we władaniu urzędu, transakcja kryptowalutowa wysłana z wykorzystaniem kluczy będących we władaniu urzędu).
 2. Odwoływanie się do łańcucha sum kontrolnych w podpisach elektronicznych. Dzięki temu podpis uczciwego człowieka składany na dokumencie w danej sprawie poświadczałby również historię tej sprawy i uniemożliwiał jej zmianę do tego punktu.
@@ -152,6 +152,6 @@ System KSI pozwala na udowodnienie, że określony stan bazy danych istniał w k
    W repozytorium Git można ją uzyskać wykonująć komendę ``git cat-file -p <ID_WKŁADU>``.
 
 .. [#numeracja-spraw]
-   Zauważmy, że w tej sytuacji numer sprawy, stanowiący informację zawartą w gałęzi sprawy, musiałby być generowany z wykorzystaniem informacyj nieznajdujących się na tej gałęzi (numerów innych spraw).
+   Zauważmy, że w tej sytuacji numer sprawy, stanowiący informację zawartą w gałęzi sprawy, musiałby być generowany z wykorzystaniem informacji nieznajdujących się na tej gałęzi (numerów innych spraw).
 
    Jednym ze sposobów obejścia problemu potencjalnych konfliktów z tym związanych jest wydzielenie gałęzi zawierających sprawy z określonych zestawów komórek organizacyjnych, lat kalendarzowych i symboli klasyfikacyjnych. Sprawy byłyby następnie zakładane za pomocą sekwencyjnej (per taki zestaw) usługi, która tworzyłaby gałąź sprawy i włączałaby ją do gałęzi zestawu (synchronizowanej oczywiście do głównej gałęzi systemu EZD).
