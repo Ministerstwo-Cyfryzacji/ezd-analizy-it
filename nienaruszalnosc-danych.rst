@@ -80,14 +80,15 @@ który jest wartością hasza obliczoną dla połączenia hasza stanu repozytori
 .. image:: images/repozytorium_i_baza_danych.png
 
 Repozytorium audycyjne nie odwzorowuje wprost informacji o strukturze wiedzy w BD. W szczególności, związki pomiędzy pismami a sprawami, związki między różnymi wersjami tego samego pisma,
-urzędowe znaki nadane pismom i sprawom, decyzje w sprawach itd. są pamiętane w postaci pojedynczych dokumentów, pamiętających pojedyncze opisy lub decyzje.
+urzędowe znaki nadane pismom i sprawom, decyzje w sprawach itd. są pamiętane w postaci pojedynczych dokumentów, pamiętających pojedyncze opisy lub decyzje, razem ze specyficznymi dla nich
+haszami. Połączenie z haszami stanu (,,Migawka Urzędu'') tworzy nowe hasze stanu. Okresowe utwalenie niektórych haszy stanu (np. publikacje) umożliwia wykazanie poprawności ciągu dokumentów.
 
 Wykorzystanie systemu kontroli wersji
 +++++++++++++++++++++++++++++++++++++
 
-Alternatywne rozwiązanie można zrobić, opierając się na systemie kontroli wersji Git_ i zapisując w repozytorium dokumenty / sprawy.
-Odwzorujemy uproszczoną strukturę danych opartą na następujących założeniach:
- 
+Proponowane rozwiązanie przypomina zasadę, na jakiej działa system kontroli wersji Git_. Jest on szeroko wykorzystywany do zapisywania treści różnych wersji programów w projektach
+informatycznych. Używając Gita, można by wprost zapisywać w repozytorium dokumenty / sprawy, przy następujących upraszczających założeniach:
+
 1. Podstawowym, niepodzielnym obiektem jest dokument.
 2. Sprawy to ciągi dokumentów. Dekretacje, akceptacje, informacje o udzieleniu dostępu do dokumentów itp. traktujemy w tym ujęciu bądź jako część dokumentów nich dotyczących, bądź jako oddzielne dokumenty.
 3. Sprawom nadaje się znaki [#skladowe-znaku-sprawy]_.
@@ -97,9 +98,7 @@ Odwzorujemy uproszczoną strukturę danych opartą na następujących założeni
 
 Dokument wyabstrahowany z kontekstu sprawy bądź rejestru możemy w repozytorium Git odwzorować jako kroplę (ang. „blob”). Sprawy możemy odzworowywać jako drzewa (ang. „trees”), które w repozytorium Git oznaczają zbiory kropel oraz poddrzew (z których to poddrzew możemy korzystać w przypadku wydzielenia sprawy). Znak sprawy mógłby być zawarty w łańcuchu nazw plików prowadzących do sprawy z głównego drzewa.
 
-Odwzorowawszy tym samym statyczny stan systemu EZD, możemy przejść do odwzorowywania zmian i zapewniania nienaruszalności danych.
-
-Przyjmijmy, że chcemy, aby liczba operacji haszujących potrzebnych do zweryfikowania integralności danej sprawy nie zależała w istotnym stopniu od ogólnej aktywności w repozytorium między wprowadzaniem poszczególnych dokumentów. Możemy to osiągnąć poprzez wykonywanie operacji na danej sprawie na oddzielnej gałęzi (ang. „branch”). Gałąź ta byłaby regularnie włączana do głównej gałęzi bądź to bezpośrednio, bądź to z wykorzystaniem gałęzi pośrednich obejmujących np. określoną komórkę organizacyjną, określoną klasyfikację JRWA czy też określoną kombinację komórki organizacyjnej, roku kalendarzowego i klasyfikacji JRWA (w ramach której nadawane są kolejne numery spraw).
+Przyjmijmy, że chcemy, aby liczba operacji haszujących potrzebnych do zweryfikowania integralności danej sprawy nie zależała w istotnym stopniu od ogólnej aktywności w repozytorium między wprowadzaniem poszczególnych dokumentów. Możemy to osiągnąć poprzez wykonywanie operacji na danej sprawie na oddzielnej gałęzi (ang. „branch”). Gałąź ta byłaby regularnie włączana do głównej gałęzi.
 
 Istnienie wkładów łączących (ang. „merge commits”) odkładanych na głównej gałęzi byłoby regularnie potwierdzane w zewnętrznej usłudze (vide „Wymóg publikacji”). Po potwierdzeniu istnienia wkładu byłby on oznaczany etykietą z adnotacją (ang. „annotated tag”), przy czym w treści adnotacji byłyby zawarte informacje potrzebne do weryfikacji poprawności potwierdzenia. Do weryfikacji istnienia określonego stanu sprawy w określonym punkcie czasu przez obywatela wystarczyłyby zatem:
 
@@ -108,13 +107,12 @@ Istnienie wkładów łączących (ang. „merge commits”) odkładanych na gł�
 * Znajomość danych pozwalających na weryfikację odnośnego wkładu z głównej gałęzi w zewnętrznej usłudze.
 
 Jeżeliby gałąź sprawy zawierała tylko dane jej dotyczące [#numeracja-spraw]_, to obywatel mógłby dokonać takiej weryfikacji bez dostępu do danych innych spraw.
-
 Rejestry przesyłek wpływających i wychodzących (oraz ewentualne inne rejestry dokumentów) można by odwzorowywać jako drzewa, w podobny sposób jak sprawy.
 
-Podsumowanie
-~~~~~~~~~~~~
-
-Pokazaliśmy (choć nie dowiedliśmy), że można by stworzyć odporną na manipulacje bazę danych EZD opartą o system kontroli wersyj Git. Rzeczywista baza danych mogłaby wymagać rozwiązania dedykowanego i uwzględniać bardziej skomplikowane mechanizmy i struktury danych. Nie analizowaliśmy też wydajności takiego systemu; niewykluczone, że w specyfice systemu EZD lepiej sprawdziłyby się inne systemy kontroli wersyj, np. Mercurial_. Metadane, indeksowanie i funkcjonalności dodatkowe musiałyby być wdrażane poza repozytorium, z wykorzystaniem dodatkowej bazy danych.
+*Uwaga: nie jest naszym zamiarem realizacja repozytorium poprzez wykorzystanie Gita. Chcieliśmy tylko pokazać, że można by stworzyć odporne na manipulacje repozytorium danych EZD
+wykorzystujące sumy kontrolne podobnie, jak to robi Git. Rzeczywista implementacja mogłaby wymagać rozwiązania dedykowanego i uwzględniać bardziej skomplikowane mechanizmy i struktury danych.
+Nie analizowaliśmy też wydajności takiego systemu; niewykluczone, że w specyfice systemu EZD lepiej sprawdziłyby się inne systemy kontroli wersyj, np. Mercurial_.
+Metadane, indeksowanie i funkcjonalności dodatkowe musiałyby być wdrażane poza repozytorium, z wykorzystaniem dodatkowej bazy danych.*
 
 Zapewnienie spójności całej bazy danych
 +++++++++++++++++++++++++++++++++++++++
