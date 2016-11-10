@@ -63,8 +63,9 @@ Można wyobrazić sobie pracę w systemie EZD nad sprawami pobranymi już na kom
 .. _XAdES: https://www.w3.org/TR/XAdES/
 .. _RFC 6920: https://tools.ietf.org/html/rfc6920
 
+.. [#dlaczego-nie-CAdES]
+   Konkurencyjnym formatem jest CAdES_, który jednak nie został wybrany z uwagi na brak wyraźnie określonej możliwości odwołania się do obiektów z uwzględnieniem ich sumy kontrolnej.
+
 .. [#ciagliwosc-dokumentow]
    Por. `ciągliwość transakcji`_ w Bitcoinie.
 
-.. [#dlaczego-nie-CAdES]
-   Konkurencyjnym formatem jest CAdES_, który jednak nie został wybrany z uwagi na brak wyraźnie określonej możliwości odwołania się do obiektów z uwzględnieniem ich sumy kontrolnej.

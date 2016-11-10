@@ -80,7 +80,7 @@ Odwzorujemy uproszczoną strukturę danych opartą na następujących założeni
  
 1. Podstawowym, niepodzielnym obiektem jest dokument.
 2. Sprawy to ciągi dokumentów. Dekretacje, akceptacje, informacje o udzieleniu dostępu do dokumentów itp. traktujemy w tym ujęciu bądź jako część dokumentów nich dotyczących, bądź jako oddzielne dokumenty.
-3. Sprawom nadaje się znaki[#skladowe-znaku-sprawy]_.
+3. Sprawom nadaje się znaki [#skladowe-znaku-sprawy]_.
 4. Każdy dokument musi docelowo znaleźć się w aktach jakiejś sprawy lub w jakimś rejestrze.
 5. Metadane i inne dane ułatwiające pracę z dokumentami (wersje robocze wraz z komentarzami do nich etc.) są przechowywane i indeksowane oddzielnie, jako niemające znaczenia prawnego.
 6. Na system EZD jednego urzędu przypada jedno repozytorium Git.
@@ -94,10 +94,10 @@ Przyjmijmy, że chcemy, aby liczba operacji haszujących potrzebnych do zweryfik
 Istnienie wkładów łączących (ang. „merge commits”) odkładanych na głównej gałęzi byłoby regularnie potwierdzane w zewnętrznej usłudze (vide „Wymóg publikacji”). Po potwierdzeniu istnienia wkładu byłby on oznaczany etykietą z adnotacją (ang. „annotated tag”), przy czym w treści adnotacji byłyby zawarte informacje potrzebne do weryfikacji poprawności potwierdzenia. Do weryfikacji istnienia określonego stanu sprawy w określonym punkcie czasu przez obywatela wystarczyłyby zatem:
 
 * Pełne dane gałęzi odpowiadającej danemu stanowi.
-* Znajomość surowych treści ciągu wkładów[#surowa-tresc-wkladu]_ włączających czubek tej gałęzi do głównej gałęzi.
+* Znajomość surowych treści ciągu wkładów [#surowa-tresc-wkladu]_ włączających czubek tej gałęzi do głównej gałęzi.
 * Znajomość danych pozwalających na weryfikację odnośnego wkładu z głównej gałęzi w zewnętrznej usłudze.
 
-Jeżeliby gałąź sprawy zawierała tylko dane jej dotyczące[#numeracja-spraw]_, to obywatel mógłby dokonać takiej weryfikacji bez dostępu do danych innych spraw.
+Jeżeliby gałąź sprawy zawierała tylko dane jej dotyczące [#numeracja-spraw]_, to obywatel mógłby dokonać takiej weryfikacji bez dostępu do danych innych spraw.
 
 Rejestry przesyłek wpływających i wychodzących (oraz ewentualne inne rejestry dokumentów) można by odwzorowywać jako drzewa, w podobny sposób jak sprawy.
 

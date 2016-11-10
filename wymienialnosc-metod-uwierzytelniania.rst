@@ -17,8 +17,8 @@ We współczesnych systemach informatycznych nadal najbardziej popularną metod�
 4. Nawet jeśli hasło jest przechowywane na serwerze w postaci zaszyfrowanej, to użytkownik może mieć w innym, niewłaściwie zabezpieczonym serwisie, ustawione to samo hasło (choć jest to odradzaną praktyką). W przypadku włamania do bazy danych tamtego serwisu wystawione na ryzyko stają się oba konta.
 5. Jeśli użytkownik stosuje politykę ustawiania różnych haseł w każdym serwisie, z którego korzysta, to stwarza to trudności w zapamiętaniu ich wszystkich.
 6. `Rozporządzenie Ministra Spraw Wewnętrznych i Administracji w sprawie dokumentacji przetwarzania danych osobowych oraz warunków technicznych i organizacyjnych,jakim powinny odpowiadać urządzenia i systemy informatyczne służące do przetwarzania danych osobowych`_ nakłada obostrzenia na politykę zarządzania hasłami w niektórych systemach, co stanowi dodatkowe niedogodności.
-7. Jeśli użytkownik, rezygnując z zapamiętywania wszystkich haseł, zaczyna korzystać z menedżera haseł, to wystawia się na inne zagrożenia w przypadku, gdy menedżer haseł nie jest zabezpieczony właściwie[#bezpieczenstwo-menedzerow-hasel]_.
-8. Poszczególne serwisy internetowe mogą wyłączać autouzupełnianie haseł[#atrybut-autocomplete]_ (takie rozwiązanie stosuje m.in. ePUAP), co w przypadku poszczególnych przeglądarek niekiedy utrudnia wygodne stosowanie menedżerów haseł[#autocomplete-hasla]_.
+7. Jeśli użytkownik, rezygnując z zapamiętywania wszystkich haseł, zaczyna korzystać z menedżera haseł, to wystawia się na inne zagrożenia w przypadku, gdy menedżer haseł nie jest zabezpieczony właściwie [#bezpieczenstwo-menedzerow-hasel]_.
+8. Poszczególne serwisy internetowe mogą wyłączać autouzupełnianie haseł [#atrybut-autocomplete]_ (takie rozwiązanie stosuje m.in. ePUAP), co w przypadku poszczególnych przeglądarek niekiedy utrudnia wygodne stosowanie menedżerów haseł [#autocomplete-hasla]_.
 9. Menedżery haseł wbudowane w przeglądarki częstokroć nie aktywują domyślnie szyfrowania haseł za pomocą hasła głównego, co sprowadza zabezpieczenie uwierzytelniania do jednego filaru (to, co użytkownik posiada).
 10. Identyfikacja za pomocą hasła wymaga zazwyczaj, aby przed wysłaniem do serwera znajdowało się ono na komputerze użytkownika w postaci niezaszyfrowanej, co ułatwia jego wykradzenie (np. za pomocą programów typu keylogger).
 11. Jeżeli użytkownik nieopatrznie zaloguje się po HTTP na oszukańczą stronę udającą prawdziwy serwis, to oznacza to złamanie części zabezpieczenia oferowanej w tym przypadku przez hasło.
@@ -47,7 +47,7 @@ W kontekście systemów EZD można w naturalny sposób wskazać następujące po
 
 1. Podpis kwalifikowany.
 2. Cyfrowa tożsamość — w przypadku, gdyby taka usługa, oferująca funkcjonalność podpisu, została wprowadzona przez rząd.
-3. Profil zaufany ePUAP — w przypadku, gdyby zyskał on adekwatny poziom zabezpieczeń[#bezpieczenstwo-epuap]_.
+3. Profil zaufany ePUAP — w przypadku, gdyby zyskał on adekwatny poziom zabezpieczeń [#bezpieczenstwo-epuap]_.
 4. Certyfikaty klienckie SSL.
 
 Z powyższych metod wyróżnić należy podpis kwalifikowany, jako że i tak prawdopodobnie będzie on wykorzystywany w systemie.
@@ -66,11 +66,11 @@ Identyfikacja za pomocą hasła jest metodą dość prymitywną i problematyczn�
 .. [#atrybut-autocomplete]
    Atrybut “autocomplete” znacznika ``<input>`` w HTML 5.
 
-.. [#bezpieczenstwo-epuap]
-   W temacie bezpieczeństwa ePUAP zobacz `„Nie używam profilu zaufanego na ePUAP”`_.
-
 .. [#autocomplete-hasla]
    Na ten temat zob. m. in.:`“<form autocomplete="off"> no longer prevents passwords from being saved”`_. Historia zmian w przeglądarce Firefox wskazuje na trend ignorowania atrybutu ``autocomplete`` w przypadku pól haseł.
+
+.. [#bezpieczenstwo-epuap]
+   W temacie bezpieczeństwa ePUAP zobacz `„Nie używam profilu zaufanego na ePUAP”`_.
 
 .. _TOTP: https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm
 .. _`“Password Managers: Attacks and Defenses”`: http://crypto.stanford.edu/~dabo/pubs/abstracts/pwdmgrBrowser.html

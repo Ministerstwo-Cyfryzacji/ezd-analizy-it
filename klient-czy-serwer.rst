@@ -11,16 +11,16 @@ Współczesne aplikacje internetowe tworzone są częstokroć w architekturze kl
 
 Oznacza to, że w typowej aplikacji WWW uruchamianej w typowej przeglądarce internetowej do strony serwerowej zaliczamy m.in. kod HTML i JavaScript; rolę klienta pełni w tym układzie sama przeglądarka.
 
-Cechą kodu klienckiego jest to, że kontrolę nad nim ma w ogólności użytkownik; nad kodem serwerowym kontrolę ma natomiast administrator serwera. Oznacza to, że podział obowiązków między klienta a serwer powinien odzwierciedlać faktyczny (prawny) podział obowiązków między poszczególne podmioty[#kto-stoi-za-serwerem]_. W przeciwnym wypadku doprowadzi to do sytuacji, w której kontrolę nad czynnościami, za który odpowiedzialny jest jeden podmiot, będzie miał inny podmiot — wprowadzając do systemu niebezpieczny element zaufania.
+Cechą kodu klienckiego jest to, że kontrolę nad nim ma w ogólności użytkownik; nad kodem serwerowym kontrolę ma natomiast administrator serwera. Oznacza to, że podział obowiązków między klienta a serwer powinien odzwierciedlać faktyczny (prawny) podział obowiązków między poszczególne podmioty [#kto-stoi-za-serwerem]_. W przeciwnym wypadku doprowadzi to do sytuacji, w której kontrolę nad czynnościami, za który odpowiedzialny jest jeden podmiot, będzie miał inny podmiot — wprowadzając do systemu niebezpieczny element zaufania.
 
 Podział kompetencji w urzędzie
 ------------------------------
 
-Urzędnik jest osobiście odpowiedzialny za składane przez siebie podpisy, skąd wynika, że po jego stronie (po stronie klienta) powinno się odbywać zarówno samo złożenie podpisu, jak i weryfikacja dokumentu, pod którym podpis jest składany[#podpis-pod-lancuchem-dokumentow]_. W szczególności podgląd dokumentu przed podpisaniem powinien odbywać się po stronie klienta, aby wykluczyć możliwość podmiany.
+Urzędnik jest osobiście odpowiedzialny za składane przez siebie podpisy, skąd wynika, że po jego stronie (po stronie klienta) powinno się odbywać zarówno samo złożenie podpisu, jak i weryfikacja dokumentu, pod którym podpis jest składany [#podpis-pod-lancuchem-dokumentow]_. W szczególności podgląd dokumentu przed podpisaniem powinien odbywać się po stronie klienta, aby wykluczyć możliwość podmiany.
 
 Z kolei po stronie serwera zazwyczaj leży zarządzanie dostępem do poszczególnych obiektów, centralna synchronizacja bazy danych, nadawanie kolejnych numerów nowo tworzonym obiektom, rozsyłanie powiadomień emailowych i tego typu pomocniczo-administracyjne czynności.
 
-Wytwarzanie dokumentów może odbywać się zarówno po stronie klienta, jak i serwera, aczkolwiek jeśli urzędnik wytwarza dokument osobiście, to skorzystanie z aplikacji klienckiej pozwala mu uniknąć dodatkowej weryfikacji/podglądu dokumentu przed podpisaniem[#weryfikacja-dokumentow-z-serwera].
+Wytwarzanie dokumentów może odbywać się zarówno po stronie klienta, jak i serwera, aczkolwiek jeśli urzędnik wytwarza dokument osobiście, to skorzystanie z aplikacji klienckiej pozwala mu uniknąć dodatkowej weryfikacji/podglądu dokumentu przed podpisaniem [#weryfikacja-dokumentow-z-serwera]_.
 
 Sposoby na przeniesienie części kontroli na stronę klienta
 ----------------------------------------------------------
