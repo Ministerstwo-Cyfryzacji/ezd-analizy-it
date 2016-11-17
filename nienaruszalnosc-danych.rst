@@ -28,8 +28,18 @@ Weryfikacja istnienia dokumentu w danym punkcie czasu za pomocą funkcji skrótu
 * łańcuch bloków określonej kryptowaluty (z wykorzystaniem kodu `OP_RETURN`_).
 
 
-Proponowane rozwiązanie dla EZD RP
-----------------------------------
+Możliwe rozwiązania
+-------------------
+
+Podpisywanie wybranych obiektów i znakowanie ich czasem
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+**Rozwiązanie proponowane dla EZD RP.**
+
+Obiekty, których utworzenie/edycja są uznawane za prawnie istotne, są podpisywane (w postaci zserializowanej), a do opakowania podpisu jest wykorzystywany kontener XAdES_ lub CAdES_ (do ustalenia). Serwer po otrzymaniu podpisanych obiektów dokonuje znakowania ich czasem za pomocą KSI. URI odzwierciedlające powiązania podpisywanych obiektów są tworzone zgodnie z `RFC 6920`_, z obowiązkowo podanym parametrem ``ct`` oraz bez sekcji ``authority``.
+
+Wykorzystanie repozytorium audycyjnego
+++++++++++++++++++++++++++++++++++++++
 
 Założenia
 ~~~~~~~~~
@@ -72,8 +82,8 @@ który jest wartością hasza obliczoną dla połączenia hasza stanu repozytori
 Repozytorium audycyjne nie odwzorowuje wprost informacji o strukturze wiedzy w BD. W szczególności, związki pomiędzy pismami a sprawami, związki między różnymi wersjami tego samego pisma,
 urzędowe znaki nadane pismom i sprawom, decyzje w sprawach itd. są pamiętane w postaci pojedynczych dokumentów, pamiętających pojedyncze opisy lub decyzje.
 
-Inne rozwiązanie
-----------------
+Wykorzystanie systemu kontroli wersji
++++++++++++++++++++++++++++++++++++++
 
 Alternatywne rozwiązanie można zrobić, opierając się na systemie kontroli wersji Git_ i zapisując w repozytorium dokumenty / sprawy.
 Odwzorujemy uproszczoną strukturę danych opartą na następujących założeniach:
@@ -106,8 +116,8 @@ Podsumowanie
 
 Pokazaliśmy (choć nie dowiedliśmy), że można by stworzyć odporną na manipulacje bazę danych EZD opartą o system kontroli wersyj Git. Rzeczywista baza danych mogłaby wymagać rozwiązania dedykowanego i uwzględniać bardziej skomplikowane mechanizmy i struktury danych. Nie analizowaliśmy też wydajności takiego systemu; niewykluczone, że w specyfice systemu EZD lepiej sprawdziłyby się inne systemy kontroli wersyj, np. Mercurial_. Metadane, indeksowanie i funkcjonalności dodatkowe musiałyby być wdrażane poza repozytorium, z wykorzystaniem dodatkowej bazy danych.
 
-Spójność całej bazy vs spójność łańcucha działań
-------------------------------------------------
+Zapewnienie spójności całej bazy danych
++++++++++++++++++++++++++++++++++++++++
 
 Innym podejściem do zapewnienia nienaruszalności danych jest zabezpieczenie pod tym kątem całej bazy. „Gratisowo” otrzymujemy taki rezultat w przypadku korzystania z nowoczesnego, rozproszonego systemu kontroli wersyj jako bazy danych, choć weryfikowalność danych przez obywatela mogłaby wymagać pewnych wyszukanych zabiegów opisanych wcześniej.
 
@@ -123,7 +133,7 @@ Słabe strony
 ------------
 
 Możliwość tworzenia wersyj równoległych
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++
 
 System KSI pozwala na udowodnienie, że określony stan bazy danych istniał w konkretnym czasie, ale nie pozwala sam w sobie na udowodnienie, że był on „obowiązujący”. Administrator o złych intencjach mógłby tworzyć równoległe wersje tej samej bazy danych i wysyłać do potwierdzenia za pomocą KSI wszystkie (jako że wysyłane są tylko wartości funkcji skrótu, to taki konflikt nie zostałby wykryty). Możliwości takie można zniwelować poprzez:
 
@@ -134,6 +144,8 @@ System KSI pozwala na udowodnienie, że określony stan bazy danych istniał w k
 .. _funkcja skrótu: https://pl.wikipedia.org/wiki/Funkcja_skr%C3%B3tu
 .. _sumy kontrolnej: https://pl.wikipedia.org/wiki/Suma_kontrolna
 .. _`„Keyless Signatures’ Infrastructure: How to Build Global Distributed Hash-Trees”`: https://eprint.iacr.org/2013/834.pdf
+.. _CAdES: https://tools.ietf.org/html/rfc5126
+.. _XAdES: https://www.w3.org/TR/XAdES/
 .. _Git: https://git-scm.com/
 .. _RFC 3161: https://www.ietf.org/rfc/rfc3161.txt
 .. _Mercurial: https://www.mercurial-scm.org/
