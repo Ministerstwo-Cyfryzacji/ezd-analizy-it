@@ -146,6 +146,7 @@ System KSI pozwala na udowodnienie, że określony stan bazy danych istniał w k
 .. _XAdES: https://www.w3.org/TR/XAdES/
 .. _Git: https://git-scm.com/
 .. _RFC 3161: https://www.ietf.org/rfc/rfc3161.txt
+.. _RFC 6920: https://tools.ietf.org/html/rfc6920
 .. _Mercurial: https://www.mercurial-scm.org/
 .. _`Firma Guardtime ogłosiła integrację ichniego systemu KSI z bazą danych Oracle`: https://guardtime.com/blog/guardtime-announces-ksi-blockchain-integration-for-oracle-11g-12c
 .. _OP_RETURN: https://en.bitcoin.it/wiki/OP_RETURN

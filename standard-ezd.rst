@@ -40,7 +40,6 @@ Można wyobrazić sobie pracę w systemie EZD nad sprawami pobranymi już na kom
 .. _ciągliwość transakcji: https://en.bitcoin.it/wiki/Transaction_Malleability
 .. _CAdES: https://tools.ietf.org/html/rfc5126
 .. _XAdES: https://www.w3.org/TR/XAdES/
-.. _RFC 6920: https://tools.ietf.org/html/rfc6920
 
 .. [#ciagliwosc-dokumentow]
    Por. `ciągliwość transakcji`_ w Bitcoinie.
