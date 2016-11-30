@@ -9,7 +9,7 @@ Dokument przedstawia kwestie związane z bezpieczeństwem i wygodą różnych me
 Identyfikacja za pomocą hasła
 -----------------------------
 
-We współczesnych systemach informatycznych nadal najbardziej popularną metodą uwierzytelniania jest zastosowanie hasła. W dobrze zabezpieczonych systemach hasło jest zapisywane z bazie serwisu w postaci praktycznie uniemożliwiającej jego odszyfrowanie. Często stosuje się również dodatkową warstwę zabezpieczeń w postaci weryfikacji dwuetapowej. Tym samym zabezpieczenie procesu uwierzytelniania opiera się na dwóch filarach: tym, co użytkownik wie (hasło) i tym, co posiada (klucz TOTP_). Taki sposób uwierzytelniania posiada szereg wad:
+We współczesnych systemach informatycznych nadal najbardziej popularną metodą uwierzytelniania jest zastosowanie hasła. W dobrze zabezpieczonych systemach hasło jest zapisywane w bazie serwisu w postaci praktycznie uniemożliwiającej jego odszyfrowanie. Często stosuje się również dodatkową warstwę zabezpieczeń w postaci weryfikacji dwuetapowej. Tym samym zabezpieczenie procesu uwierzytelniania opiera się na dwóch filarach: tym, co użytkownik wie (hasło) i tym, co posiada (klucz TOTP_). Taki sposób uwierzytelniania posiada szereg wad:
 
 1. Choć hasło w dobrze zabezpieczonym serwisie jest przesyłane przez sieć w postaci zaszyfrowanej, a także trafia do bazy danych po jednostronnym zaszyfrowaniu, to pomiędzy tymi dwoma czynnościami znajduje się ono w pamięci serwera w postaci odszyfrowanej.
 2. Użytkownikowi nie można udowodnić, że jego hasło jest faktycznie przechowywane w bazie danych w sposób niemożliwy do odszyfrowania.
