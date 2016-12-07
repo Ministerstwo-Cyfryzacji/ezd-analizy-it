@@ -1,5 +1,5 @@
-Szkic standardu EZD — wersja robocza
-====================================
+Format danych EZD
+=================
 
 Wstęp
 -----
