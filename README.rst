@@ -7,4 +7,12 @@ Przedstawiane rekomendacje opierają się przede wszystkim na przesłankach tech
 
 Wkłady znajdujące się na głównej gałęzi (master) tego repozytorium są podpisywane za pomocą OpenPGP_. Dla wygody klucze podpisujące znajdują się w repozytorium pod znacznikiem ``klucze-pgp``; można je wypisać wykonując komendę ``git cat-file -p klucze-pgp``. (Weryfikację ich wiarygodności należy jednak przeprowadzać innym kanałem).
 
+Spis dokumentów
+---------------
+
+* `Rozdział kompetencji między klienta a serwer w systemie EZD <klient-czy-serwer.rst>`_
+* `Wymienialność metod uwierzytelniania <wymienialnosc-metod-uwierzytelniania.rst>`_
+* `Nienaruszalność danych w systemie EZD <nienaruszalnosc-danych.rst>`_
+* `Format danych EZD <format-danych-ezd.rst>`_
+
 .. _OpenPGP: http://openpgp.org/
