@@ -1,4 +1,4 @@
-Analizy IT projektu R&D EZD RP
+Analizy IT projektu B+R EZD RP
 ==============================
 
 Niniejsze repozytorium zawiera wybrane analizy IT tworzone w ramach projektu badawczo-rozwojowego systemu Elektronicznego Zarządzania Dokumentacją Rzeczypospolitej Polskiej.
