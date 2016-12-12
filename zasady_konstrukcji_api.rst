@@ -13,7 +13,7 @@ API dla Java
 Projektuj przewidując rozwój
 ++++++++++++++++++++++++++++
 
-Jeśli API jest cokolwiek warte – będzie ewoluować.   Z drugiej strony, jeśli coś w API już jest, to zapewne będzie musiało zostać.
+Jeśli API jest cokolwiek warte — będzie ewoluować. Z drugiej strony, jeśli coś w API już jest, to zapewne będzie musiało zostać.
 
 2 postulaty wstecznej zgodności:
 
@@ -21,11 +21,13 @@ Jeśli API jest cokolwiek warte – będzie ewoluować.   Z drugiej strony, jeś
 - istniejący kod źródłowy można nadal skompilować (zgodność źródłowa).
 
 Nie da się przewidzieć, w jaki sposób użytkownicy skorzystają z API.
-Rozważając zmianę – należy rozumować konserwatywnie: *tylko* jeśli można stwierdzić z prawdopodobieństwem graniczącym z pewnością, że zmiana nie spowoduje załamania jakiejkolwiek istniejącej aplikacji – *można* zmianę wprowadzić.
+Rozważając zmiany, należy rozumować konserwatywnie: zmianę *możemy* wprowadzić *tylko wtedy* gdy potrafimy stwierdzić z prawdopodobieństwem
+graniczącym z pewnością, że zmiana *nie* spowoduje załamania jakiejkolwiek istniejącej aplikacji.
 
-Jeśli potrzebne jest wprowadzenie większych zmian – należy zbudować nowe API, z inną nazwą.
+Jeśli potrzebne jest wprowadzenie większych zmian – należy zbudować nowe API, używając innej nazwy.
 
-Dobrym pomysłem jest wprowadzenie na początek jednej lub kilku wersji o numerach 0.xx przed wersją 1.0. Użytkownicy rozumieją, że takie wersje mogą być zmieniane.
+Dobrym pomysłem jest wprowadzenie na początek jednej lub kilku wersji o numerach 0.xx przed wersją 1.0.
+Użytkownicy rozumieją, że takie wersje mogą być niestabilne.
 
 API – cele projektowe
 +++++++++++++++++++++
@@ -44,7 +46,7 @@ Minimalizm
 
 Znacznie łatwiej dodawać nowe elementy niż je usuwać.
 
-Im więcej jest elementów w API, tym trudniej jest się nauczyć.
+Im więcej jest elementów w API, tym trudniej jest się go nauczyć.
 
 Im większy API, tym więcej może być błędów.
 
@@ -68,7 +70,7 @@ Nie implementuj Cloneable: tworzenie kopii obiektu jest zwykle mniej przydatne n
 
 Wyjątki (Exceptions) zwykle powinny nie być przesłaniane.
 
-Przewidź stosowanie dziedziczenia - lub nie pozwalaj na to.
+Przewidź stosowanie dziedziczenia — lub nie pozwalaj na to.
 
 
 API dla REST
@@ -124,9 +126,9 @@ Używaj nagłówków HTTP
 
 Zarówno klient jak i serwer powinny znać format używany w komunikacji. Format powinien być wyspecyfikowany w nagłówku HTTP.
 
-*Content-Type*    określa format żądania
+*Content-Type*  określa format żądania
 
-*Accept*              określa listę akceptowalnych formatów odpowiedzi.
+*Accept*        określa listę akceptowalnych formatów odpowiedzi.
 
 Używaj HATEOAS (Hypermedia as the Engine of Application State)
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -138,7 +140,7 @@ Nie potrzebuje żadnej wstępnej wiedzy o tym, jak komunikować się, poza gener
 - można w ten sposób otrzymać wszystkie rekordy
 - ścieżka do korzenia udostępnia index API.
 
-W odróżnieniu, niektóre aplikacje o architekturze SOA (service-oriented architecture) komunikują się sztywnym interfejsem albo
+W odróżnieniu, niektóre aplikacje o architekturze SOA (service–oriented architecture) komunikują się sztywnym interfejsem albo
 językiem opisu interfejsu (IDL).
 
 Zasada HATEOAS rozdziela klienta i serwer w sposób, który pozwala im ewoluować niezależnie.
@@ -209,7 +211,7 @@ Przykłady powinne być proste i łatwe do zrozumienia
 Umożliw ograniczenie listy zwracanych pól
 +++++++++++++++++++++++++++++++++++++++++
 
-Parametr taki jak 'pola', podający rozdzieloną przecinkami listę,  pozwala na ograniczenie zwracanych pól do tych,
+Parametr taki jak „pola”, podający rozdzieloną przecinkami listę, pozwala na ograniczenie zwracanych pól do tych,
 których użytkownik potrzebuje. Na przykład
 
 ::
@@ -232,7 +234,7 @@ XML jest zbyt dosłowny i trudniejszy do czytania i parsowania.
 
 W sieci obserwuje się odejście od XML na rzecz formatu JSON.
 
-Nowym mechanizmem, który też można użyć, zwłaszcza gdy potrzeba
+Nowym mechanizmem, którego też można użyć, zwłaszcza gdy potrzeba
 otrzymywać wiele struktur danych w odpowiedzi na jedno żądanie
 jest `GraphQL <http://graphql.org/>`_.
 
@@ -250,7 +252,7 @@ Jeśli wynik zwraca fragment zasobów, dołącz w odpowiedzi gotowe linki do są
 ::
 
  Link: </TheBook/chapter2>;
-       rel="previous"; title="Giewont",
+       rel="previous"; title="Matterhorn",
        </TheBook/chapter4>;
        rel="next"; title="Mont Blanc"
 
@@ -281,14 +283,14 @@ Obsługuj błędy zwracane jako status HTTP
 Przynajmniej te:
 
 -  200 – OK
--  201 – OK                — Utworzono nowy obiekt
--  204 – OK                — Udało się usunąć
+-  201 – Created           — Utworzono nowy obiekt
+-  204 – No Content        — OK; nie ma dalszych danych
 -  304 – Not Modified      — Klient nie może używać buforowanych danych
 -  400 – Bad Request       — Niepoprawne żądanie
 -  401 – Unauthorized      — Niepoprawna autentykacja
 -  403 – Forbidden         — Niedozwolone żądanie lub brak dostępu do zasobów
 -  404 – Not found         — Nie odnaleziono zasobu URI
--  500 – Internal Server Error — Twórcy API powinni unikać tego błędu. Jeśli wystąpi błąd w aplikacji – powinien być zapisywany do logu; należy starać się zwrócić przyjazny tekst komunikatu.
+-  500 – Internal Server Error — Twórcy API powinni unikać tego błędu. Jeśli wystąpi błąd w aplikacji — powinien być zapisywany do logu; należy starać się zwrócić przyjazny tekst komunikatu.
 
 Dostarcz osobne komunikaty dla
 
@@ -329,17 +331,17 @@ Dostarcz dwie różne składnie wywołań funkcji:
 Nazwy
 +++++
 
-Powinny rozpoczynać się i kończyć znakami “a-z”.
+Powinny rozpoczynać się i kończyć znakami „a-z”.
 
-Powinny zawierać jedynie znaki “a-z”, 0-9” i znak łącznika “-”.
+Powinny zawierać jedynie znaki “a-z”, „0-9” i znak łącznika „-”.
 
-Używaj raczej konwencji "Wielbłądziej"
+Używaj raczej konwencji „Wielbłądziej”
 
 ::
 
   nazwaZlozonegoElementu
 
-niż konwencji "Wężowej"
+niż konwencji „Wężowej”
 
 ::
 
