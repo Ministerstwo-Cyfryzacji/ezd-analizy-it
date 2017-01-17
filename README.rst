@@ -14,5 +14,6 @@ Spis dokumentów
 * `Wymienialność metod uwierzytelniania <wymienialnosc-metod-uwierzytelniania.rst>`_
 * `Nienaruszalność danych w systemie EZD <nienaruszalnosc-danych.rst>`_
 * `Format danych EZD <format-danych-ezd.rst>`_
+* `Zasady konstrukcji API <zasady-konstrukcji-api.rst>`_
 
 .. _OpenPGP: http://openpgp.org/

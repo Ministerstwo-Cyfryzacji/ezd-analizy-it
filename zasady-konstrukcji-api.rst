@@ -227,22 +227,10 @@ Niektórzy autorzy postulują, że
 aby uniknąć konieczności ponownego pytania o zaktualizowane wartości, operacja aktualizująca powinna od razu
 je zwracać. (To jest dyskusyjne, np. w przypadku masowych zmian — których efektu program kliencki może nie potrzebować.)
 
-Zwracaj JSON
-++++++++++++
-
-XML jest zbyt dosłowny i trudniejszy do czytania i parsowania.
-
-W sieci obserwuje się odejście od XML na rzecz formatu JSON.
-
-Nowym mechanizmem, którego też można użyć, zwłaszcza gdy potrzeba
-otrzymywać wiele struktur danych w odpowiedzi na jedno żądanie
-jest `GraphQL <http://graphql.org/>`_.
-
 Absolutne adresy danych dodatkowych
 +++++++++++++++++++++++++++++++++++
 
-Jeśli pojawiają się odnośniki do dodatkowych zasobów,
-to odnośniki te powinny być absolutne.
+Jeśli pojawiają się odnośniki do dodatkowych zasobów, to odnośniki te powinny być absolutne.
 
 Podaj połączenia do sąsiednich stron
 ++++++++++++++++++++++++++++++++++++
@@ -305,12 +293,10 @@ oraz
 Narzędzia dokumentowania API
 ++++++++++++++++++++++++++++
 
-Niektórzy Autorzy zalecają do wykonania opisu twojego API, narzędzia
+Niektórzy autorzy zalecają do wykonania opisu API następujące narzędzia:
 
 - `OpenAPI Specification (fka Swagger RESTful API Documentation Specification) <http://swagger.io/specification/>`_
-
 - `API Blueprint <https://apiblueprint.org/>`_
-
 - `Interface description language <https://en.wikipedia.org/wiki/Interface_description_language>`_
 
 
@@ -333,7 +319,7 @@ Nazwy
 
 Powinny rozpoczynać się i kończyć znakami „a-z”.
 
-Powinny zawierać jedynie znaki “a-z”, „0-9” i znak łącznika „-”.
+Powinny zawierać jedynie znaki „a-z”, „A-Z”, „0-9” i znak łącznika „-”.
 
 Używaj raczej konwencji „Wielbłądziej”
 
