@@ -89,9 +89,14 @@ Java do wersji 8 włącznie podczas startowania aplikacji ładuje wszystkie wyko
 Modułowość w Javie 9
 ````````````````````
 
-W tej wersji Javy zastosowano podejście do modularności bardzo podobne do tego w OSGi. Tutaj podczas tworzenia biblioteki będziemy mogli zdefiniować, które klasy/pakiety z naszej biblioteki będą widoczne na zewnątrz (dla kodu, który będzie korzystał z naszej biblioteki), tzn. że będziemy mogli ukryć dla osób korzystających z naszej biblioteki np. jej zależności lub typowo wewnętrzne klasy.
+W tej wersji Javy zastosowano podejście do modularności bardzo podobne do tego w OSGi [#osgi]_. Tutaj podczas tworzenia biblioteki będziemy mogli zdefiniować, które klasy/pakiety z naszej biblioteki będą widoczne na zewnątrz (dla kodu, który będzie korzystał z naszej biblioteki), tzn. że będziemy mogli ukryć dla osób korzystających z naszej biblioteki np. jej zależności lub typowo wewnętrzne klasy.
 
 Konkluzja i rozwiązanie problemu
 ````````````````````````````````
 
 W związku z opisywanymi problemami zamierzamy, na jak najwcześniejszym etapie prac, korzystać z Javy 9 oraz Springa 5 (w trakcie prac nad systemem zintegrujemy wersje testowe tych narzędzi).
+
+.. [#osgi]
+   Standard OSGi opisuje sposób ładowania modułów, pozwalając m. in. na ukrywanie prywatnych komponentów, specyfikowanie zależności pomiędzy modułami, ładowanie i odładowywanie modułów w czasie działania aplikacji.
+
+   Szczegółowy znajduje się na stronie https://www.osgi.org/developer/architecture/.
