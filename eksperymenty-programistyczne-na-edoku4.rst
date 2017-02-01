@@ -1,5 +1,5 @@
-Eksperymenty programistyczne na eDoku4
-======================================
+Eksperymenty programistyczne na eDoku 4
+=======================================
 
 Pierwszy eksperyment programistyczny
 ------------------------------------
