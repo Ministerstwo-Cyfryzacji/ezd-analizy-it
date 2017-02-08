@@ -15,7 +15,7 @@ Zapisywanie w bazie danych historii zmian nie stanowi samo w sobie żadnego zabe
 Łańcuch sum kontrolnych
 -----------------------
 
-Narzędziem pozwalającym zyskać niemal stuprocentową pewność co do nienaruszalności określonego dokumentu jest `funkcja skrótu`_, pełniąca rolę `sumy kontrolnej`_. Znajomość jej uprzedniej wartości w odniesieniu do konkretnego zestawu danych pozwala mieć pewność, że nie zostały one podmienione. Przechodząc do bardziej konkretnych przypadków, znajomość wartości funkcji skrótu konkretnego dokumentu pozwala na potwierdzenie jego zawartości. Jeśli w aktach danej sprawy każdy dokument zawiera w swojej treści możliwą do odczytania funkcję skrótu poprzedzającego go dokumentu, to do potwierdzenia treści wszystkich dokumentów z tej sprawy wystarczy znajomość funkcji skrótu ostatniego dokumentu.
+Narzędziem pozwalającym zyskać niemal stuprocentową pewność co do nienaruszalności określonego dokumentu jest `funkcja skrótu`_, pełniąca rolę `sumy kontrolnej`_. Jeśli w aktach danej sprawy każdy dokument zawiera w swojej treści możliwą do odczytania funkcję skrótu poprzedzającego go dokumentu, to do potwierdzenia treści wszystkich dokumentów z tej sprawy wystarczy znajomość funkcji skrótu ostatniego dokumentu.
 
 Wymóg publikacji
 ----------------
@@ -27,9 +27,8 @@ Weryfikacja istnienia dokumentu w danym punkcie czasu za pomocą funkcji skrótu
 * publicznie dostępne repozytorium Git_;
 * łańcuch bloków określonej kryptowaluty (z wykorzystaniem kodu `OP_RETURN`_).
 
-
-Możliwe rozwiązania
--------------------
+Sposoby zapewnienia krótkoterminowej nienaruszalności
+-----------------------------------------------------
 
 Podpisywanie wybranych obiektów i znakowanie ich czasem
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -139,6 +138,19 @@ System KSI pozwala na udowodnienie, że określony stan bazy danych istniał w k
 2. Odwoływanie się do łańcucha sum kontrolnych w podpisach elektronicznych. Dzięki temu podpis uczciwego człowieka składany na dokumencie w danej sprawie poświadczałby również historię tej sprawy i uniemożliwiał jej zmianę do tego punktu.
 3. Publikację cząstkowych sum kontrolnych w inny sposób (np. publikacja sumy konrolnej sprawy w powiadomieniach emailowych wysyłanych obywatelowi).
 
+Długoterminowa archiwizacja podpisów
+------------------------------------
+
+Tradycyjna metoda konserwacji podpisu polega na opatrywaniu go pieczęcią elektroniczną poświadczającą, że podpis został utworzony przed określonym punktem czasowym (w którym tylko właściwa osoba dysponowała danymi pozwalającymi na złożenie tego podpisu). Pieczęć korzysta przy tym z tej samej technologii, co sam podpis. Zwiększenie mocy obliczeniowej komputerów niesie ze sobą ryzyko złamania zarówno jednego, jak i drugiego. Przyjmuje się, że wejście w życie komputerów kwantowych będzie oznaczało koniec współcześnie popularnych metod podpisywania (por. dokument “`CNSA Suite and Quantum Computing FAQ`_”). Za pomocą komputerów kwantowych będzie można, mając dostęp do publicznych certyfikatów, podrobić zarówno podpis pod dokumentem, jak i pieczęć znakującą ten podpis czasem.
+
+Konserwacja podpisów w oparciu o Keyless Signatures’ Infrastructure bazuje tymczasem nie na tej samej technologii, co podpis (kryptografia klucza publicznego), tylko na funkcjach skrótu, które są uznawane za odporne na zagrożenia związane z informatyką kwantową. Co za tym idzie, o ile ktoś byłby w stanie w przyszłości podrobić podpis stosowany współcześnie, to niekoniecznie będzie w stanie udowodnić, że podpis ten został współcześnie stworzony, co jest kluczowe przy jego weryfikacji (certyfikaty wykorzystywane do tworzenia podpisów mają swoje okresy ważności).
+
+Dodatkową zaletą KSI jest umniejszenie roli zaufanej trzeciej strony, co powinno pozwolić na:
+
+1. Ogólnie większy poziom zaufania do usługi znakowania czasem.
+2. Niższe koszty organizacyjne związane z zapewnieniem procedur bezpieczeństwa — które to procedury nie będą potrzebne w takim stopniu, jak obecnie, jako że nie będą istniały informacje tajne wymagające ochrony (certyfikaty pieczęci).
+
+.. _CNSA Suite and Quantum Computing FAQ: https://www.iad.gov/iad/library/ia-guidance/ia-solutions-for-classified/algorithm-guidance/cnsa-suite-and-quantum-computing-faq.cfm
 .. _funkcja skrótu: https://pl.wikipedia.org/wiki/Funkcja_skr%C3%B3tu
 .. _sumy kontrolnej: https://pl.wikipedia.org/wiki/Suma_kontrolna
 .. _`„Keyless Signatures’ Infrastructure: How to Build Global Distributed Hash-Trees”`: https://eprint.iacr.org/2013/834.pdf
