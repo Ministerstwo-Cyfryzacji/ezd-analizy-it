@@ -1,3 +1,5 @@
+Poniższy dokument odzwierciedla stan nieaktualny. Architektura platformy została zasadniczo zmieniona, a co za tym idzie, także decyzje programistyczne. Dokument jest pozostawiony w repozytorium w celu dokumentacji przebiegu procesu badawczego.
+
 Decyzje programistyczne - platforma aplikacje.gov.pl
 ====================================================
 
