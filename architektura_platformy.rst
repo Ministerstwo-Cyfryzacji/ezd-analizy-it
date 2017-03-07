@@ -28,6 +28,10 @@ Dużym ułatwieniem przy uruchamianiu serwisów jest ich bezstanowość - dlateg
 
 Mając napisany zestaw serwisów, które komunikują się między sobą tworzą „usługę”, można je wszystkie uruchomić na jednym albo wielu komputerach, przydzielając im odpowiednie adresy portów i przekazując odpowiednie namiary na serwisy, od których zależą. Umieszczenie wielu serwisów na jednym komputerze może być wygodne do testowania na wczesnym stadium rozwoju. Docelowe rozrzucenie na kilka komputerów może wynikać z analizy obciążenia.
 
+.. figure:: images/architektura_platformy.png
+
+   Schemat komunikacji mikroserwisów w obrębie Platformy.
+
 Kontenery Docker
 ----------------
 
