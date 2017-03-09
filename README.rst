@@ -10,6 +10,7 @@ Wkłady znajdujące się na głównej gałęzi (master) tego repozytorium są po
 Spis dokumentów
 ---------------
 
+* `Słownik projektowy <slownik.rst>`_
 * `Rozdział kompetencji między klienta a serwer w systemie EZD <klient-czy-serwer.rst>`_
 * `Wymienialność metod uwierzytelniania <wymienialnosc-metod-uwierzytelniania.rst>`_
 * `Nienaruszalność danych w systemie EZD <nienaruszalnosc-danych.rst>`_
