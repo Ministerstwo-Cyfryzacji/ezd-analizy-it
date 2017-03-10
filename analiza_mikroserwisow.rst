@@ -57,29 +57,128 @@ argumentami są niezasadne lub nie wpływają w istotny sposób na poziom
 trudności systemu i takie, które istotnie występują i muszą być wzięte
 pod uwagę w podejmowaniu decyzji o wykorzystaniu mikroserwisów.
 
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Lp       | Ryzyko                                                                                                                                                                                                                                                                                                                                         | Kontrargumenty                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-+==========+================================================================================================================================================================================================================================================================================================================================================+==================================================================================================================================================================================================================================================================================================================================================================================================================================================================+
-| 1        | Różne części systemu mogą być tworzone w różnych technologiach, co utrudnia zrozumienie całego kodu na szczegółowym poziomie.                                                                                                                                                                                                                  | Zrozumienie całego kodu na szczegółowym poziomie nie jest potrzebne. Aby nie musieć tego robić w systemach informatycznych stosuje się różnego rodzaju abstrakcje (system operacyjny, język programowania, protokoły). Konieczność rozumienia całego kodu oznacza źle zaprojektowany/napisany system.                                                                                                                                                            |
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2        | Różne części systemu mogą być tworzone w różnych technologiach, co może utrudnić stosowanie automatów pomagających w procesie wytwórczym (np continuous integration).                                                                                                                                                                          | Automaty pomagające w procesie wytwórczym mogą być niezależne dla każdego serwisu z osobna.                                                                                                                                                                                                                                                                                                                                                                      |
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 3        | Automaty pomagające w procesie wytwórczym mogą być niezależne dla każdego serwisu z osobna. Co budzi niepokój, że nie ma testów dla całości                                                                                                                                                                                                    | Testy dla całości nie są wykluczone. Nie są przypisane do jakiegokolwiek serwisu, tylko do ich zestawu tworzącego platformę. Aplikacja może także zawierać testy integracyjne uruchamiające inne aplikacje i sprawdzające poprawność ich współpracy.                                                                                                                                                                                                             |
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 4        | Możliwość tworzenie w różnych technologiach może spowodować używanie przestarzałych lub źle zaprojektowanych narzędzi                                                                                                                                                                                                                          | Odpowiednie testy integracyjne (niezależne od implementacji) powinny wykryć złe funkcjonowanie                                                                                                                                                                                                                                                                                                                                                                   |
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 5        | Możliwość tworzenie w różnych technologiach może spowodować używanie używanie przestarzałych lub źle zaprojektowanych narzędzi, które wprowadzą dziury bezpieczeństwa                                                                                                                                                                          | Testy bezpieczeństwa mikroserwisu nie są istotnie trudniejsze od testów bezpieczeństwa aplikacji monolitycznej. Problemem jest jednak m. in. fakt, że należy takich testów wykonać wiele, po jednym na każdy mikroserwis.                                                                                                                                                                                                                                        |
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 6        | Niezależność mikroserwisów polegająca na łatwym przebiegu ich modyfikacji może być w niektórych sytuacjach postrzegana jako problem, na przykład wtedy, gdy potrzebna będzie zmiana większej części systemu                                                                                                                                    | Łatwość modyfikacji nie wpływa negatywnie na możliwość wykonywania większych zmian. Wygląda na to, że problem tkwi w śledzeniu przez jakie mikroserwisy używana jest część Y mikroserwisu X. Ten problem będzie rozwiązany przez dokładne specyfikacje API. W mikroserwisie Z nie korzystamy z mikroserwisu X, lecz z określonego API. Zmiana API będzie stanowić problem, jednak nie jest to przypadłość tylko mikroserwisów.                                   |
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 7        | Trudniejsze zarządzanie transakcjami                                                                                                                                                                                                                                                                                                           | Problem tkwi w zapewnieniu atomowości operacji, które angażują wiele mikroserwisów. Kontrargumentem jest, że takich serwisów nie powinno być. Atomowe operacje powinny być realizowane wewnątrz jednego serwisu. Z tego powodu operacje atomowe powinny być małe.                                                                                                                                                                                                |
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 8        | W przypadku mikroserwisów API, dla których wprowadzanie zmian jest trudnym procesem, będzie znacznie więcej niż w przypadku monolitu                                                                                                                                                                                                           | Więcej standardowych, opisanych protokołów jest pozytywnym aspektem.                                                                                                                                                                                                                                                                                                                                                                                             |
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 9        | Wraz ze wzrostem każdej niezależnej aplikacji, wzrasta też zespół ją tworzący – może przyczynić się to do problemów w koordynacji. Łatwiej kierować jednym, sporym zespołem, tworzącym spójną całość i pracującym nad jednym kodem, niż nad wieloma zespołami pracującymi nad niezależnymi aplikacjami, które powinny tworzyć spójną całość.   | Niezależne aplikacje nie muszą być tworzone przez jeden zespół. W momencie gdy osiągają stosunkową stabilność (wprowadzane zmiany nie zmieniają API w poważny sposób) zespoły mogą pracować oddzielnie                                                                                                                                                                                                                                                           |
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 10       | Mikroserwisy są stosunkowo nowym stylem programowania, który wymaga bardziej skomplikowanych narzędzi niż monolityczny odpowiednik. Jest też mniej znany, dlatego na i tak już małym rynku, znajduje się mniej specjalistów wdrożonych w system. Może więc generować większe koszty podczas tworzenia aplikacji, zwłaszcza na początku.        | Pisanie pojedynczego mikroserwisu to pisanie (w zamierzeniu małego - pod względem funkcji) programu, który ma API. Nie jest to nic nowego. Uruchamianie wielu takich programów w celu stworzenia funkcjonującego produktu może nastręczać trudności (z powodu swojej żmudności i konieczności odpowiedniej konfiguracji). Zadaniem zespołu tworzącego środowisko deweloperskie jest zapewnienie narzędzia, które w łatwy sposób uruchamia wiele mikroserwisów.   |
-+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-----------------------------+----------------------------------------+
+|Ryzyko                       |Kontrargumenty                          |
++=============================+========================================+
+|Różne części systemu mogą być|Zrozumienie całego kodu na szczegółowym |
+|tworzone w różnych           |poziomie nie jest potrzebne. Aby nie    |
+|technologiach, co utrudnia   |musieć tego robić w systemach           |
+|zrozumienie całego kodu na   |informatycznych stosuje się różnego     |
+|szczegółowym poziomie.       |rodzaju abstrakcje (system operacyjny,  |
+|                             |język programowania,                    |
+|                             |protokoły). Konieczność rozumienia      |
+|                             |całego kodu oznacza źle                 |
+|                             |zaprojektowany/napisany system.         |
++-----------------------------+----------------------------------------+
+|Różne części systemu mogą być|Automaty pomagające w procesie          |
+|tworzone w różnych           |wytwórczym mogą być niezależne dla      |
+|technologiach, co może       |każdego serwisu z osobna.               |
+|utrudnić stosowanie automatów|                                        |
+|pomagających w procesie      |                                        |
+|wytwórczym (np continuous    |                                        |
+|integration).                |                                        |
++-----------------------------+----------------------------------------+
+|Automaty pomagające w        |Testy dla całości nie są wykluczone. Nie|
+|procesie wytwórczym mogą być |są przypisane do jakiegokolwiek serwisu,|
+|niezależne dla każdego       |tylko do ich zestawu tworzącego         |
+|serwisu z osobna. Co budzi   |platformę. Aplikacja może także zawierać|
+|niepokój, że nie ma testów   |testy integracyjne uruchamiające inne   |
+|dla całości.                 |aplikacje i sprawdzające poprawność ich |
+|                             |współpracy.                             |
++-----------------------------+----------------------------------------+
+|Pozostawienie dowolności     |Zła struktura kodu i źle dobrany język  |
+|technologicznej wykonawcy    |programowania jako cechy same w sobie   |
+|usługi może skutkować        |nie są szkodliwe. Szkodliwe są dopiero  |
+|powstaniem kodu o złej       |skutki: złe funkcjonowanie, luki        |
+|strukturze lub nietrafnym    |bezpieczeństwa, trudności w             |
+|wyborem języka programowania.|modyfikowaniu danej mikrousługi.        |
++-----------------------------+----------------------------------------+
+|Możliwość tworzenia w różnych|Odpowiednie testy integracyjne          |
+|technologiach może spowodować|(niezależne od implementacji) powinny   |
+|używanie przestarzałych lub  |wykryć złe funkcjonowanie.              |
+|źle zaprojektowanych         |                                        |
+|narzędzi, co może prowdzić do|                                        |
+|niepoprawnego funkcjonowania |                                        |
+|serwisów.                    |                                        |
++-----------------------------+----------------------------------------+
+|Możliwość tworzenie w różnych|Testy bezpieczeństwa mikroserwisu nie są|
+|technologiach może spowodować|istotnie trudniejsze od testów          |
+|używanie używanie            |bezpieczeństwa aplikacji                |
+|przestarzałych lub źle       |monolitycznej. Problemem jest jednak    |
+|zaprojektowanych narzędzi,   |m.in. fakt, że należy takich testów     |
+|które wprowadzą dziury       |wykonać wiele, po jednym na każdy       |
+|bezpieczeństwa.              |mikroserwis.                            |
++-----------------------------+----------------------------------------+
+|Możliwość tworzenia w różnych|Zapewnienie kodu o dobrej jakości nie   |
+|technologiach może spowodować|powinno być wymuszane przez strukturę   |
+|używanie niewłaściwie        |techniczną platformy. Powinno być       |
+|dobranych narzędzi i         |wymuszane przez proces certyfikacji lub |
+|powstawanie kodu o           |umowy z wykonawcami poszczególnych      |
+|niewłaściwej strukturze, co  |aplikacji.                              |
+|utrudni rozwój istniejących  |                                        |
+|serwisów.                    |Można też stwierdzić, że jakość kodu    |
+|                             |pojedynczej mikrousługi nie jest ważna w|
+|                             |kontekście możliwości jej rozwijania.   |
+|                             |Jako, że mikrousługa jest mała pod      |
+|                             |względem pełnionych funkcji, napisanie  |
+|                             |jej od nowa nie powinno być bardzo      |
+|                             |kosztowne.                              |
++-----------------------------+----------------------------------------+
+|Niezależność mikroserwisów   |Łatwość modyfikacji nie wpływa          |
+|polegająca na łatwym         |negatywnie na możliwość wykonywania     |
+|przebiegu ich modyfikacji    |większych zmian. Wygląda na to, że      |
+|może być w niektórych        |problem tkwi w śledzeniu przez jakie    |
+|sytuacjach postrzegana jako  |mikroserwisy używana jest część Y       |
+|problem, na przykład wtedy,  |mikroserwisu X. Ten problem będzie      |
+|gdy potrzebna będzie zmiana  |rozwiązany przez dokładne specyfikacje  |
+|większej części systemu.     |API. W mikroserwisie Z nie korzystamy z |
+|                             |mikroserwisu X, lecz z określonego      |
+|                             |API. Zmiana API będzie stanowić problem,|
+|                             |jednak nie jest to przypadłość tylko    |
+|                             |mikroserwisów.                          |
++-----------------------------+----------------------------------------+
+|W przypadku mikroserwisów    |Więcej standardowych, opisanych         |
+|API, dla których wprowadzanie|protokołów jest pozytywnym aspektem.    |
+|zmian jest trudnym procesem, |                                        |
+|będzie znacznie więcej niż w |                                        |
+|przypadku monolitu.          |                                        |
++-----------------------------+----------------------------------------+
+|Trudniejsze zarządzanie      |Problem tkwi w zapewnieniu atomowości   |
+|transakcjami.                |operacji, które angażują wiele          |
+|                             |mikroserwisów. Kontrargumentem jest, że |
+|                             |takich serwisów nie powinno być. Atomowe|
+|                             |operacje powinny być realizowane        |
+|                             |wewnątrz jednego serwisu. Z tego powodu |
+|                             |operacje atomowe powinny być małe.      |
++-----------------------------+----------------------------------------+
+|Wraz ze wzrostem każdej      |Niezależne aplikacje nie muszą być      |
+|niezależnej aplikacji,       |tworzone przez jeden zespół. W momencie |
+|wzrasta też zespół ją        |gdy osiągają stosunkową stabilność      |
+|tworzący – może przyczynić   |(wprowadzane zmiany nie zmieniają API w |
+|się to do problemów w        |poważny sposób) zespoły mogą pracować   |
+|koordynacji. Łatwiej kierować|oddzielnie.                             |
+|jednym, sporym zespołem,     |                                        |
+|tworzącym spójną całość i    |                                        |
+|pracującym nad jednym kodem, |                                        |
+|niż nad wieloma zespołami    |                                        |
+|pracującymi nad niezależnymi |                                        |
+|aplikacjami, które powinny   |                                        |
+|tworzyć spójną całość.       |                                        |
++-----------------------------+----------------------------------------+
+|Mikroserwisy są stosunkowo   |Pisanie pojedynczego mikroserwisu to    |
+|nowym stylem programowania,  |pisanie (w zamierzeniu małego - pod     |
+|który wymaga bardziej        |względem funkcji) programu, który ma    |
+|skomplikowanych narzędzi niż |API. Nie jest to nic                    |
+|monolityczny                 |nowego. Uruchamianie wielu takich       |
+|odpowiednik. Jest też mniej  |programów w celu stworzenia             |
+|znany, dlatego na i tak już  |funkcjonującego produktu może nastręczać|
+|małym rynku, znajduje się    |trudności (z powodu swojej żmudności i  |
+|mniej specjalistów wdrożonych|konieczności odpowiedniej               |
+|w system. Może więc generować|konfiguracji). Zadaniem zespołu         |
+|większe koszty podczas       |tworzącego środowisko deweloperskie jest|
+|tworzenia aplikacji,         |zapewnienie narzędzia, które w łatwy    |
+|zwłaszcza na początku.       |sposób uruchamia wiele mikroserwisów.   |
++-----------------------------+----------------------------------------+
 
 Ryzyka, które należy zestawić z korzyściami:
 
@@ -105,7 +204,7 @@ przez niezależnych producentów zapewnienie swobody technologicznej jest
 ważnym aspektem. Bez takiej swobody zbiór potencjalnych producentów
 aplikacji zostałby ograniczony.
 
-Oprócz EZD i innych, planowanych aplikacji, będzie potrzeba uruchamiania
+Oprócz EZD i innych planowanych aplikacji, będzie potrzeba uruchamiania
 na platformie innych aplikacji. Postaci tych aplikacji nie sposób
 przewidzieć. Ograniczanie jej może ograniczyć możliwe do zrealizowania
 funkcje. Architektura mikroserwisów, przez zapewnienie swobody
@@ -125,11 +224,11 @@ gdyby moduły wielu producentów kooperowały w ramach jednego systemu -
 oba rozwiązania wymagają certyfikacji aplikacji pod kątem
 bezpieczeństwa.
 
-Rekomenduje się wykorzystanie wzroca mikroserwisów w budowie platformy
+Rekomenduje się wykorzystanie wzorca mikroserwisów w budowie platformy
 aplikacje.gov.pl. Aby wybrać to rozwiązanie konieczne jest
 przeprowadzenie dodatkowych konsultacji z zespołem odpowiedzialnym za
 architekturę chmurową i bezpieczeństwo docelowej platformy.
 
 .. [1]
-   :sup:`` Niektóre z nch zostały wyrażone we wpisie na blogu:
+   Niektóre z nch zostały wyrażone we wpisie na blogu:
    `http://www.ictshop.pl/czym-sa-mikrouslugi/ <http://www.ictshop.pl/czym-sa-mikrouslugi/>`__
