@@ -35,7 +35,7 @@ Metody uwierzytelniania wykorzystujące kryptografię asymetryczną pozwalają n
 Wśród tych metod można wymienić.
 
 * Bitid_.
-* BitAuth_. Identyfikacja następuje bez wykorzystania mechanizmu sesyj, dla każdego zapytania oddzielnie. Jest to zatem rozwiązanie bezstanowe.
+* BitAuth_. Identyfikacja następuje bez wykorzystania mechanizmu sesji, dla każdego zapytania oddzielnie. Jest to zatem rozwiązanie bezstanowe.
 * SQRL_.
 * Certyfikaty klienckie SSL (wykorzystywane m.in. w `estońskiej e-rezydencji`_).
 * Polski podpis kwalifikowany.
