@@ -8,8 +8,7 @@ Cel
 ~~~
 
 Podjęcie decyzji, czy platforma aplikacje.gov.pl będzie budowana w
-oparciu o wzorzec mikroserwisów
-(`http://microservices.io/ <http://microservices.io/>`__).
+oparciu o `wzorzec mikroserwisów`_.
 
 Sposób realizacji
 ~~~~~~~~~~~~~~~~~
@@ -87,11 +86,11 @@ pod uwagę w podejmowaniu decyzji o wykorzystaniu mikroserwisów.
 |                             |współpracy.                             |
 +-----------------------------+----------------------------------------+
 |Pozostawienie dowolności     |Zła struktura kodu i źle dobrany język  |
-|technologicznej wykonawcy    |programowania jako cechy same w sobie   |
-|usługi może skutkować        |nie są szkodliwe. Szkodliwe są dopiero  |
-|powstaniem kodu o złej       |skutki: złe funkcjonowanie, luki        |
-|strukturze lub nietrafnym    |bezpieczeństwa, trudności w             |
-|wyborem języka programowania.|modyfikowaniu danej mikrousługi.        |
+|technologicznej wykonawcy    |programowania mogą powodować niepoprawne|
+|usługi może skutkować        |funkcjonowanie, luki bezpieczeństwa,    |
+|powstaniem kodu o złej       |trudności w modyfikowaniu istniejącego  |
+|strukturze lub nietrafnym    |kodu. Te aspekty są poruszne poniżej.   |
+|wyborem języka programowania.|                                        |
 +-----------------------------+----------------------------------------+
 |Możliwość tworzenia w różnych|Odpowiednie testy integracyjne          |
 |technologiach może spowodować|(niezależne od implementacji) powinny   |
@@ -172,7 +171,7 @@ pod uwagę w podejmowaniu decyzji o wykorzystaniu mikroserwisów.
 |monolityczny                 |nowego. Uruchamianie wielu takich       |
 |odpowiednik. Jest też mniej  |programów w celu stworzenia             |
 |znany, dlatego na i tak już  |funkcjonującego produktu może nastręczać|
-|małym rynku, znajduje się    |trudności (z powodu swojej żmudności i  |
+|małym rynku znajduje się     |trudności (z powodu swojej żmudności i  |
 |mniej specjalistów wdrożonych|konieczności odpowiedniej               |
 |w system. Może więc generować|konfiguracji). Zadaniem zespołu         |
 |większe koszty podczas       |tworzącego środowisko deweloperskie jest|
@@ -232,3 +231,5 @@ architekturę chmurową i bezpieczeństwo docelowej platformy.
 .. [1]
    Niektóre z nch zostały wyrażone we wpisie na blogu:
    `http://www.ictshop.pl/czym-sa-mikrouslugi/ <http://www.ictshop.pl/czym-sa-mikrouslugi/>`__
+
+.. _wzorzec mikroserwisów: http://microservices.io/
