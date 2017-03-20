@@ -22,7 +22,7 @@ Moduły (serwisy) działające w obrębie platformy będą oddzielnymi programam
 
 Serwisy będą uruchamiane w środowisku linuksowym.
 
-Pisanie kodu nowych serwisów to pisanie programów. Język jest dowolny, o ile można go uruchomić na platformie linuksowej. Kompilacja może się odbywać na platformie nie-linuksowej. Serwis może korzystać z innych serwisów - ich adresy powinny być konfigurowalne (np. w pliku konfiguracyjnym lub w wywołaniu linii poleceń). Program powinien mieć możliwość przyjmowania tych adresów jako nazw hostów i dekodowania ich zapytaniami DNS, ponieważ adresacja w sieci może być dynamiczna.
+Pisanie kodu nowych serwisów to pisanie programów. Język jest dowolny, o ile można go uruchomić na platformie linuksowej. Kompilacja może się odbywać na platformie nielinuksowej. Serwis może korzystać z innych serwisów - ich adresy powinny być konfigurowalne (np. w pliku konfiguracyjnym lub w wywołaniu linii poleceń). Program powinien mieć możliwość przyjmowania tych adresów jako nazw hostów i dekodowania ich zapytaniami DNS, ponieważ adresacja w sieci może być dynamiczna.
 
 Dużym ułatwieniem przy uruchamianiu serwisów jest ich bezstanowość - dlatego powinny być bezstanowe tak bardzo jak tylko się da. (Bezstanowość oznacza, że reakcja serwisu na żądanie jest zdeterminowana przez parametry żądania i treść odpowiedzi na inne żądania, wykonywane przez serwis. Nie zależy ona od tego co działo się z serwisem przed żądaniem — to znaczy, że serwis nie może pamiętać swojej historii). Celem jest możliwość łatwego skalowania - dowolnego niszczenia i tworzenia instancji serwisów.
 
@@ -35,11 +35,11 @@ Mając napisany zestaw serwisów, które komunikują się między sobą tworzą 
 Kontenery Docker
 ----------------
 
-Docelowo w projekcie będzie (prawdopodobnie) użyta konteneryzacja Docker’a (https://www.docker.com/products/docker-engine). Każdy serwis otrzyma swoje własne, lekkie, odizolowane od innych serwisów środowisko – kontener. Docker będzie zarządzał adresacją sieci w sieciach wirtualnych, routingiem, podłączeniem kontenerów do sieci i wpisami DNS serwowanymi wewnątrz tych sieci, dzięki czemu serwisy będą mogły komunikować się między sobą.
+Docelowo w projekcie będzie (prawdopodobnie) użyta `konteneryzacja Dockera`_. Każdy serwis otrzyma swoje własne, lekkie, odizolowane od innych serwisów środowisko – kontener. Docker będzie zarządzał adresacją sieci w sieciach wirtualnych, routingiem, podłączeniem kontenerów do sieci i wpisami DNS serwowanymi wewnątrz tych sieci, dzięki czemu serwisy będą mogły komunikować się między sobą.
 
-Użycie docker-engine w trybie docker swarm mode pozwala na rozpraszanie kontenerów pomiędzy wiele maszyn.
+Użycie Docker Engine w trybie swarm pozwala na rozpraszanie kontenerów pomiędzy wiele maszyn.
 
-Docker-compose (https://docs.docker.com/compose/overview/) jest narzędziem, które prawdopodobnie zostanie użyte w projekcie, być może tylko jako narzędzie deweloperskie. Docker-compose odpowiada za łatwe budowanie środowiska złożonego z wielu, zależnych między sobą kontenerów.
+`Docker Compose`_ jest narzędziem, które prawdopodobnie zostanie użyte w projekcie, być może tylko jako narzędzie deweloperskie. Docker Compose odpowiada za łatwe budowanie środowiska złożonego z wielu, zależnych między sobą kontenerów.
 
 .. image:: images/mikroserwisy_i_docker_swarm.png
 
@@ -48,7 +48,7 @@ Frontend
 
 Nie wszystkie serwisy będą mieć frontend (GUI - interfejs graficzny użytkownika, dostępny jako strona internetowa), jednak serwisów z frontendem będzie więcej niż jeden. W celu zapewnienia współpracy pomiędzy poszczególnymi częściami frontendu proponowane jest następujące rozwiązanie:
 
-Każdy serwis serwuje swoją stronę, używając być może wspólnych komponentów, np CSSów i wspólnych bibliotek elementów w celu zapewnienia spójności graficznej. Odwrócone proxy (np nginx) łączy GUI serwowane na wielu adresach w GUI serwowany na jednym adresie, z poszczególnymi GUI dostępnymi pod określonymi ścieżkami.
+Każdy serwis serwuje swoją stronę, używając być może wspólnych komponentów, np. CSSów i wspólnych bibliotek elementów w celu zapewnienia spójności graficznej. Odwrotne proxy (np nginx) łączy GUI serwowane na wielu adresach w GUI serwowany na jednym adresie, z poszczególnymi GUI dostępnymi pod określonymi ścieżkami.
 
 Serwisy, które chcą wewnątrz swojego GUI załączyć GUI innych serwisów robią to za pomocą iframe. Przy użyciu tej technologii mogą zostać zbudowane integratory takie jak Osobisty Pulpit, Dashboard, tj. mikroserwisy integrujące ze sobą aplikacje (aby zmniejszyć potrzebę uruchamiania aplikacji w wielu kartach).
 
@@ -61,4 +61,7 @@ Architektura platformy nie powinna, by nie nakładać ograniczeń, określać ws
 
 Proponowana lista serwisów jak i API serwisów nie są jeszcze wyspecyfikowane.
 
-Serwisami mogą być istniejące już aplikacje - np wspomniana wyżej baza danych lub nginx. Interfejs (API) serwowany przez tego typu serwisy jest określony (ponieważ te aplikacje już istnieją).
+Serwisami mogą być istniejące już aplikacje - np. wspomniana wyżej baza danych lub nginx. Interfejs (API) serwowany przez tego typu serwisy jest określony (ponieważ te aplikacje już istnieją).
+
+.. _konteneryzacja Dockera: https://www.docker.com/products/docker-engine
+.. _Docker Compose: https://docs.docker.com/compose/overview/
