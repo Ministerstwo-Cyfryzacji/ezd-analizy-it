@@ -100,7 +100,7 @@ pod uwagę w podejmowaniu decyzji o wykorzystaniu mikroserwisów.
 |niepoprawnego funkcjonowania |                                        |
 |serwisów.                    |                                        |
 +-----------------------------+----------------------------------------+
-|Możliwość tworzenie w różnych|Testy bezpieczeństwa mikroserwisu nie są|
+|Możliwość tworzenia w różnych|Testy bezpieczeństwa mikroserwisu nie są|
 |technologiach może spowodować|istotnie trudniejsze od testów          |
 |używanie używanie            |bezpieczeństwa aplikacji                |
 |przestarzałych lub źle       |monolitycznej. Problemem jest jednak    |
