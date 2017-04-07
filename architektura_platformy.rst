@@ -1,5 +1,5 @@
-﻿Architektura platformy aplikacje.gov.pl - szkic
-===============================================
+﻿Architektura platformy aplikacje.gov.pl
+=======================================
 
 Cel
 ---
@@ -13,10 +13,30 @@ Opisanie szkicu architektury platformy aplikacje.gov.pl
 Krótka odpowiedź
 ----------------
 
-* architektura: mikroserwisy
+* architektura: oparta o mikroserwisy
 * język programowania: dowolny, uruchamialny w środowisku linuksowym
-* baza danych: dowolna, uruchamialna w środowisku linuksowym,
-  najlepiej w architekturze serwer-klient
+* baza danych: SQL + skład plików
+
+Architektura
+------------
+
+Platforma zawiera "spawner", który na żądanie tworzy nowe instancje
+korzystając z maszyn wirtualnych dostarczanych przez infrastrukturę.
+Instancja zawiera środowisko, w którym będa uruchamiane aplikacje,
+"konfigurator instancji" oraz bazę danych. Pojedyncza, wyizolowana
+instancja platformy powinna być samodzielnym systemem, który można
+uruchomić bez chmury i bez spawnera.
+
+Środowisko do uruchamiania aplikacji to system kontenerów - np Docker
+Swarm. Konfigurator instancji zarządza instalowaniem aplikacji na
+żądanie użytkownika. Baza danych jest wydzielona spośród bezstanowych
+aplikacji, ponieważ należy pilnować fizycznego miejsca, w którym
+uruchamiane są jej serwery. Umieszczenie bazy danych wewnątrz Docker
+Swarm spowodowałoby że byłoby to trudne lub niemożliwe. 
+
+.. figure:: images/architektura_platformy.png
+
+   Schemat architektury Platformy.
 
 Mikroserwisy
 ------------
