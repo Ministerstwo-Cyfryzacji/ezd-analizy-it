@@ -58,6 +58,33 @@ może wynikać z analizy obciążenia.
 
    Schemat komunikacji mikroserwisów w obrębie Platformy.
 
+Konfigurator instancji
+----------------------
+
+Konfigurator instancji jest programem, który zarządza aplikacjami
+zainstalowanymi na pojedynczej instancji platformy. Odpowiedzialność
+konfiguratora:
+
+* zapewnienie zasobów potrzebnych do działania aplikacji (np.
+  użytkownika DB, odpowiednich API, parametrów),
+* uruchomienie aplikacji - nie tylko bezpośrednio po jej instalacji, ale
+  także np. po restarcie serwera,
+* dostarczenie interfejsu do zarządzania zbiorem zainstalowanych
+  aplikacji.
+
+Konfigurator będzie pisany w języku Python, we frameworku Django.
+
+.. figure:: images/dzialanie_konfiguratora_instancji.png
+
+   Schemat działania konfiguratora instancji.
+
+   Cylinder symbolizuje bazę danych, w której zapisana jest cała
+   informacja o tym, które aplikacje są zainstalowane na instancji i
+   jaka jest ich konfiguracja. Po lewej od cylindra są sposoby
+   zmiany danych w bazie danych. Po prawej są sposoby uruchamiania i
+   konfigurowania oprogramowania według opisu z bazy danych. Nazwy
+   funkcji są podane jako przykład.
+
 Kontenery Docker
 ----------------
 
