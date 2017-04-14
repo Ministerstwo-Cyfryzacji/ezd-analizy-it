@@ -54,7 +54,7 @@ serwisów na jednym komputerze może być wygodne do testowania na
 wczesnym stadium rozwoju. Docelowe rozrzucenie na kilka komputerów
 może wynikać z analizy obciążenia.
 
-.. figure:: images/architektura_platformy.png
+.. figure:: images/komunikacja_mikroserwisow.png
 
    Schemat komunikacji mikroserwisów w obrębie Platformy.
 
