@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+
+<html lang="pl">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Składnia w BNF</title>
+
+    <style>
+        .raw,
+        span.ptag,
+        span.ktag,
+        span.pptag,
+        span.pktag { font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+                     font-style: normal; }
+
+        span.ptag:before,
+        span.pptag:before  { content: "<"; }
+        span.ptag:after,
+        span.ktag:after,
+        span.pktag:before  { content: ">"; }
+        span.ktag:before   { content: "</"; }
+        span.attrib:before { content: "attribute."; }
+
+        p.legend { margin-left: 40px; }
+
+        span.definition,
+        span.useHere    { font-family: "Times New Roman", Georgia, Serif;
+                          font-style: italic;
+                          text-decoration: underline red;
+        }
+
+        span.attrib { font-family: "Times New Roman", Georgia, Serif;
+                      font-style: oblique;
+                      font-weight: bold;
+        }
+
+        div.scrolledMain { font-size: 150%;
+                           margin-top: 30px;
+                           background-color: #ccFFFF;
+                           height: 700px;
+                           overflow: scroll;
+        }
+
+        div.scrolledDefaultHidden { font-size: 120%;
+                                    font-style: italic;
+                                    background-color: #bbf7ce;
+                                    height: 300px;
+                                    overflow: scroll;
+        }
+
+        div.blockDef { margin-top: 15px;
+                       margin-bottom: 25px;
+        }
+
+        div.recalledDef { background-color: #d1d1e0;
+                          margin-bottom: 10px;
+        }
+        div.usingDef    { background-color: #f1d1e0;
+                          margin-bottom: 10px;
+        }
+
+        div.container  { width:90%;
+                         margin-bottom: 60px;
+        }
+        span.showHelpButton { float: left;
+                              background-color: #bbf7ce;
+        }
+        span.displayXmlTriggerButton{ float: right;
+                                      width: 250px;
+                                      background-color: yellow;
+                                      font-size: 140%;
+                                      font-weight: bold;
+        }
+    </style>
+  </head>
+
+  <body onLoad="initialize()">
+
+    <div class="all">
+
+      <h1>Niezbędne elementy struktury dokumentów elektronicznych</h1>
+      <h2><em>wg Rozporządzenia MSWiA z dnia 30 października 2006 r. (propozycja modyfikacji 28.III.2017, wersja 24.IV.2017)</em></h2>
+      <h1>w notacji BNF</h1>
+
+      <div class="container">
+        <span class="showHelpButton"><button onClick="turnOnOffHelp();"> Objaśnienie </button></span>
+        <span class="displayXmlTriggerButton"><input id="ShowXMLOnOff" type='checkbox' checked='1' onclick='turnOnOffXML(this.checked);'/>
+                   &nbsp; Format XML </span>
+      </div>
+
+      
+      <div class="scrolledDefaultHidden" id="HelpWindow">
+
+        <p><em>Dokument najlepiej oglądać przy użyciu FireFox (nie wszystkie przeglądarki obsługują kolorowe podkreślenia).</em></p>
+
+        <p><em>Produkcje bezkontekstowe definiujące symbole są następującej postaci:</em></p>
+
+        <p class="legend"><span class="definition">SymbolDefiniowany</span> ::= <span class="useHere">Symbole</span>
+        <em>i</em> <span class="raw">teksty</span>
+                    <em>składające się na</em> <span class="definition">SymbolDefiniowany</span></p>
+                    <p>i używają nastepujących konwencji:</p>
+        <p class="legend"><span class="raw">tekst</span> — <em>dokładnie taki tekst musi wystąpić</em></p>
+        <p class="legend"><span class="raw">{ tekst }</span> — <em>tekst stanowi objaśnienie, co może byc wartością</em></p>
+        <p class="legend"><span class="useHere">Symbol</span> — <em>musi wystąpić wartość definiowana przez Symbol</em></p>
+        <table border="0">
+          <tr>
+            <td> &nbsp; &nbsp; &nbsp; </td>
+            <td>
+              <table border="0">
+                <tr>
+                  <td>
+                      <hr width="1" size="110"/>
+                  </td>
+                  <td>
+                      <table>
+                          <tr><td>Element 1</td></tr>
+                          <tr><td>Element 2</td></tr>
+                          <tr><td> . . . </td></tr>
+                          <tr><td>Element n</td></tr>
+                      </table>
+                  </td>
+                  <td>
+                      <hr width="1" size="110"/>
+                  </td>
+                  <td>
+                      — dokładnie jeden z elementów musi wystąpić
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <p class="legend"> <span class="raw">[</span> Element <span class="raw">]</span> — <em>użycie elementu jest opcjonalne</em></p>
+        <p class="legend">Element* — <em>Element może wystąpić 0, 1 lub więcej razy</em></p>
+        <p class="legend">Element+ — <em>Element może wystąpić 1 lub więcej razy</em></p>
+        <p class="legend"><strong>attribute.</strong><span class="raw">Klucz</span>=<em>"Wartość" — dana musi dodatkowo
+                          posiadać atrybut o określonej wartości (podawane przy opisie struktury danych)</em></p>
+
+        <p><em>Hiperlinki</em></p>
+        <p class="legend">
+          Podkreślone symbole są hiperlinkami. Naciśnięcie na symbol nie-terminalny (podkreślony) po prawej stronie
+          produkcji powoduje wyświetlenie jego definicji.
+          Naciśnięcie na symbol nie-terminalny po lewej stronie produkcji powoduje wyświetlenie listy produkcji,
+          w której symbol ten występuje po prawej stronie.</p>
+        Składnia XML
+
+        <p class="legend">
+          Bez zaznaczenia pola wyboru "Format XML", pokazywana jest struktura danych; w tej postaci kolejność elementów nie ma znaczenia.
+          Zaznaczenie "Format XML" powoduje wyświetlenie danych w formacie XML, z pokazaniem własciwych tagów pól.</p>
+
+        <button onClick="turnOnOffHelp(false);">Schowaj</button>
+      </div>
+
+
+      <div class="scrolledMain">
+
+        <div class="blockDef" id="Dokument">
+          <span class="definition">Dokument</span> ::= <span class="ptag">dokument</span>
+                  <span class="useHere">Identyfikator</span>+
+                  <span class="useHere">Tytuł</span>         
+                  <span class="useHere">DataPrzypisana</span>+
+                  <span class="useHere">Format</span>+
+                  <span class="useHere">Dostęp</span>
+                  <span class="useHere">Typ</span>
+                  <span class="useHere">Grupowanie</span>+
+                  <span class="useHere">Twórca</span>*
+                [ <span class="useHere">Nadawca</span>      ]
+                  <span class="useHere">Odbiorca</span>*
+                  <span class="useHere">Relacja</span>*
+                [ <span class="useHere">Kwalifikacja</span> ]
+                  <span class="useHere">Język</span>*
+                [ <span class="useHere">Opis</span>         ]
+                [ <span class="useHere">Tematyka</span>     ]
+                  <span class="useHere">Uprawnienia</span>*
+                  <span class="useHere">Lokalizacja</span>*
+                [ <span class="useHere">Status</span>       ]
+              <span class="ktag">dokument</span>
+        </div>
+
+        
+        <div class="blockDef" id="Identyfikator">
+          <span class="definition">Identyfikator</span> ::= <span class="ptag">identyfikator</span>
+                      <span class="useHere">TypIdentyfikatora</span> <span class="useHere">WartośćId</span>
+                      [ <span class="useHere">Podmiot</span> ] <span class="ktag">identyfikator</span>
+        </div>
+
+        <div class="blockDef" id="TypIdentyfikatora">
+          <span class="definition">TypIdentyfikatora</span> ::= <span class="ptag">typIdentyfikatora</span>
+                      { określenie rodzaju identyfikatora pozwalające odróżnić od siebie identyfikatory nadane przez różne podmioty,
+                      np. informacja w jakim systemie identyfikator został nadany } <span class="ktag">typIdentyfikatora</span> 
+        </div>
+
+        <div class="blockDef" id="WartośćId">
+          <span class="definition">WartośćId</span> ::= <span class="ptag">wartoscId</span> { ciąg znaków będący wartością
+                      identyfikatora. W danym zbiorze wartość powinna być unikatowa } <span class="ktag">wartoscId</span>
+        </div>
+        
+        <div class="blockDef" id="Tytuł">
+          <span class="definition">Tytuł</span> ::= <span class="ptag">tytul</span> <span class="useHere">Oryginalny</span>
+                      <span class="useHere">Alternatywny</span>* <span class="ktag">tytul</span>
+        </div>
+
+        <div class="blockDef" id="Oryginalny">
+          <span class="definition">Oryginalny</span> ::= <span class="pptag">oryginalny</span> [ <span class="useHere">
+                      OkreślenieJęzyka</span> ] <span class="pktag"></span> <span class="useHere">Tekst</span>
+                      <span class="ktag">oryginalny</span>
+        </div>
+
+        <div class="blockDef" id="Alternatywny">
+          <span class="definition">Alternatywny</span> ::= <span class="pptag">alternatywny</span> [ <span class="useHere">
+                      OkreślenieJęzyka</span> ] <span class="pktag"></span> <span class="useHere">Tekst</span>
+                      <span class="ktag">alternatywny</span>
+        </div>
+
+        <div class="blockDef" id="OkreślenieJęzyka">
+          <span class="definition">OkreślenieJęzyka</span> ::= <span class="attrib"></span><span class="raw">kodJezyka=</span>"<span
+                      class="useHere">KodJęzyka</span>"
+        </div>
+
+        
+        <div class="blockDef" id="DataPrzypisana">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">DataPrzypisana</span> ::=
+            </td>
+            <td>
+              <hr width="1" size="70"/>
+            </td>
+            <td>
+              <table>
+                <tr><td> <span class="useHere">DataZdarzenia</span> </td></tr>
+                <tr><td> <span class="useHere">DatyZakres</span> </td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="70"/>
+            </td>
+          </tr></table>
+        </div>
+
+        <div class="blockDef" id="DataZdarzenia">
+          <span class="definition">DataZdarzenia</span> ::= <span class="ptag">data</span>
+                      <span class="useHere">TypPojedyńczegoZdarzenia</span>
+                      <span class="useHere">CzasPojedyńczy</span> <span class="ktag">data</span>
+        </div>
+
+        <div class="blockDef" id="TypPojedyńczegoZdarzenia">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">TypPojedyńczegoZdarzenia</span> ::= <span class="ptag">typDaty</span>
+            </td>
+            <td>
+              <hr width="1" size="330"/>
+            </td>
+            <td>
+              <table class="raw">
+                <tr><td>opublikowany</td></tr>
+                <tr><td>utworzony</td></tr>
+                <tr><td>data na piśmie</td></tr>
+                <tr><td>uzyskany</td></tr>
+                <tr><td>doręczony</td></tr>
+                <tr><td>wysłany</td></tr>
+                <tr><td>zatwierdzony</td></tr>
+                <tr><td>podpisany</td></tr>
+                <tr><td>zmodyfikowany</td></tr>
+                <tr><td>data rejestracji</td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="330"/>
+            </td>
+            <td>
+              <span class="ktag">typDaty</span>
+            </td>
+          </tr></table>
+        </div>
+
+        <div class="blockDef" id="CzasPojedyńczy">
+          <span class="definition">CzasPojedyńczy</span> ::= <span class="ptag">czas</span>
+                      <span class="useHere">Czas</span> <span class="ktag">czas</span>
+        </div>
+
+        <div class="blockDef" id="DatyZakres">
+          <span class="definition">DatyZakres</span> ::= <span class="ptag">data</span>
+                      <span class="ptag">zakresDat</span><span class="raw">daty skrajne</span><span class="ktag">zakresDat</span>
+                      <span class="ptag">czasOd</span>  <span class="useHere">Czas</span>
+                      <span class="ktag">czasOd</span> <span class="ptag">czasDo</span> <span class="useHere">Czas</span>
+                      <span class="ktag">czasDo</span> <span class="ktag">data</span>
+        </div>
+
+        
+        <div class="blockDef" id="Format">
+          <span class="definition">Format</span> ::= <span class="ptag">format</span> <span class="useHere">TypFormatu</span>
+                      [ <span class="useHere">Specyfikacja</span> ] [ <span class="useHere">Niekompletność</span> ]
+                      [ <span class="useHere">FormatWielkość</span> ] <span class="ktag">format</span>
+        </div>
+
+        <div class="blockDef" id="TypFormatu">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">TypFormatu</span> ::= <span class="ptag">typFormatu</span>
+            </td>
+            <td>
+              <hr width="1" size="70"/>
+            </td>
+            <td>
+              <table>
+                <tr><td><span class="useHere">FormatElektroniczny</span></td></tr>
+                <tr><td><span class="attrib"></span><span class="raw">fizyczny</span> <span class="useHere">FormatFizyczny</span></td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="70"/>
+            </td>
+            <td>
+              <span class="ktag">typFormatu</span>
+            </td>
+          </tr></table>
+        </div>
+
+        <div class="blockDef" id="Specyfikacja">
+          <span class="definition">Specyfikacja</span> ::= <span class="ptag">specyfikacja</span> <span class="useHere">Tekst</span>
+                      <span class="ktag">specyfikacja </span>
+        </div>
+
+        <div class="blockDef" id="Niekompletność">
+          <span class="definition">Niekompletność</span> ::= <span class="ptag">niekompletnosc</span> <span class="raw">tak</span>
+                      <span class="ktag">niekompletnosc</span>
+        </div>
+
+        <div class="blockDef" id="FormatWielkość">
+          <span class="definition">FormatWielkość</span> ::= <span class="pptag">wielkosc</span> <span class="useHere">Miara</span>
+                      <span class="pktag"></span> <span class="useHere">Tekst</span> <span class="ktag">wielkosc</span>
+        </div>
+
+        <div class="blockDef" id="Miara">
+          <span class="definition">Miara</span> ::= <span class="attrib"></span><span class="raw">miara</span>="<span
+                      class="useHere">MiaraWielkości</span>"
+        </div>
+
+       
+        <div class="blockDef" id="Dostęp">
+          <span class="definition">Dostęp</span> ::= <span class="ptag">dostep</span> <span class="useHere">Dostępność</span>
+                      [ <span class="useHere">Uwagi</span> ] [ <span class="useHere">DataTylkoPo</span> ]
+            <span class="ktag">dostep</span>
+        </div>
+
+        <div class="blockDef" id="Dostępność">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">Dostępność</span> ::= <span class="ptag">dostepnosc</span> <span class="attrib"></span>
+            </td>
+            <td>
+              <hr width="1" size="90"/>
+            </td>
+            <td>
+              <table class="raw">
+                <tr><td>publiczny</td></tr>
+                <tr><td>niepubliczny</td></tr>
+                <tr><td>wyłączony</td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="90"/>
+            </td>
+            <td>
+              <span class="ktag">dostepnosc</span>
+            </td>
+          </tr></table>
+        </div>
+
+        <div class="blockDef" id="Uwagi">
+          <span class="definition">Uwagi</span> ::= <span class="ptag">uwagi</span> <span class="useHere">Tekst</span>
+                      <span class="ktag">uwagi</span>
+        </div>
+
+        <div class="blockDef" id="DataTylkoPo">
+          <span class="definition">DataTylkoPo</span> ::= <span class="ptag">data</span> <span class="useHere">TypDataPo</span>
+                      <span class="useHere">CzasPojedyńczy</span> <span class="ktag">data</span>
+        </div>
+
+        <div class="blockDef" id="TypDataPo">
+          <span class="definition">TypDataPo</span> ::= <span class="ptag">typ</span><span class="raw">dostępny po</span>
+                      <span class="ktag">typ</span> <span class="useHere">CzasPojedyńczy</span>
+        </div>
+
+        <div class="blockDef" id="Typ">
+          <span class="definition">Typ</span> ::= <span class="ptag">typ</span> <span class="useHere">Klasa</span>
+                      <span class="useHere">Rodzaj</span>+ <span class="ktag">typ</span>
+        </div>
+
+        
+        <div class="blockDef" id="Grupowanie">
+          <span class="definition">Grupowanie</span> ::= <span class="ptag">grupowanie</span>
+                      <span class="useHere">TypGrupy</span> <span class="useHere">KodGrupy</span>
+                      <span class="useHere">Opis</span> <span class="ktag">grupowanie</span>
+        </div>
+
+        
+        <div class="blockDef" id="Twórca">
+          <span class="definition">Twórca</span> ::= <span class="ptag">tworca</span> <span class="useHere">Funkcja</span>+
+                      <span class="useHere">Podmiot</span> <span class="ktag">tworca</span>
+        </div>
+
+        <div class="blockDef" id="Funkcja">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">Funkcja</span> ::= <span class="ptag">funkcja</span>
+            </td>
+            <td>
+              <hr width="1" size="160"/>
+            </td>
+            <td>
+              <table class="raw">
+                <tr><td>podpisał</td></tr>
+                <tr><td>utworzył</td></tr>
+                <tr><td>modyfikował</td></tr>
+                <tr><td>zatwierdził</td></tr>
+                <tr><td>opublikowany</td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="160"/>
+            </td>
+            <td>
+              <span class="ktag">funkcja</span>
+            </td>
+          </tr></table>
+        </div>
+
+        
+        <div class="blockDef" id="Nadawca">
+          <span class="definition">Nadawca</span> ::= <span class="ptag">nadawca</span> <span class="useHere">Podmiot</span>
+                      <span class="ktag">nadawca</span>
+        </div>
+
+        
+        <div class="blockDef" id="Odbiorca">
+          <span class="definition">Odbiorca</span> ::= <span class="ptag">odbiorca</span> [ <span class="useHere">DoWiadomości</span> ]
+                      <span class="useHere">Podmiot</span> <span class="ktag">odbiorca</span>
+        </div>
+
+        <div class="blockDef" id="DoWiadomości">
+          <span class="definition">DoWiadomości</span> ::= <span class="ptag">doWiadomosci</span><span
+                      class="raw">tak</span><span class="ktag">doWiadomosci</span>
+        </div>
+
+        
+        <div class="blockDef" id="Relacja">
+          <span class="definition">Relacja</span> ::= <span class="ptag">relacja</span> <span class="useHere">Identyfikator</span>+
+                      <span class="useHere">TypRelacji</span> <span class="ktag">relacja</span>
+        </div>
+
+        <div class="blockDef" id="TypRelacji">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">TypRelacji</span> ::= <span class="ptag">typRelacji</span>
+            </td>
+            <td>
+              <hr width="1" size="360"/>
+            </td>
+            <td>
+              <table class="raw">
+                <tr><td>ma odniesienie</td></tr>
+                <tr><td>odnosi się do</td></tr>
+                <tr><td>jest dekretacją</td></tr>
+                <tr><td>ma dekretację</td></tr>
+                <tr><td>ma podpis</td></tr>
+                <tr><td>jest podpisem</td></tr>
+                <tr><td>ma wersję</td></tr>
+                <tr><td>jest wersją</td></tr>
+                <tr><td>ma część</td></tr>
+                <tr><td>jest częścią</td></tr>
+                <tr><td>ma format</td></tr>
+                <tr><td>jest formatem</td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="360"/>
+            </td>
+            <td>
+              <span class="ktag">typRelacji</span>
+            </td>
+          </tr></table>
+        </div>
+
+        
+        <div class="blockDef" id="Kwalifikacja">
+          <span class="definition">Kwalifikacja</span> ::= <span class="ptag">kwalifikacja</span>
+                      <span class="useHere">KategoriaArchiwalna</span> <span class="useHere">DataBezOpisu</span>
+                      <span class="useHere">Podmiot</span> <span class="ktag">kwalifikacja</span>
+        </div>
+
+        <div class="blockDef" id="KategoriaArchiwalna">
+          <span class="definition">KategoriaArchiwalna</span> ::= <span class="ptag">kategoria</span>
+                      { oznaczenie kategorii archiwalnej } <span class="ktag">kategoria</span>
+        </div>
+
+        <div class="blockDef" id="DataBezOpisu">
+          <span class="definition">DataBezOpisu</span> ::= <span class="ptag">data</span> <span class="useHere">Czas</span>
+                      <span class="ktag">data</span>
+        </div>
+
+        
+        <div class="blockDef" id="Język">
+          <span class="definition">Język</span> ::= <span class="pptag">jezyk</span> <span class="useHere">OkreślenieJęzyka</span>
+                      <span class="pktag"></span> [ <span class="useHere">NazwaJęzyka</span> ] <span class="ktag">jezyk</span>
+        </div>
+
+        
+        <div class="blockDef" id="Opis">
+          <span class="definition">Opis</span> ::= <span class="ptag">opis</span> { w zależności od kontekstu: krótki
+                      opis w przypadku dokumentu; hasło klasyfikacyjne wykazu akt w przypadku sprawy; w przypadku grupy
+                      dokumentów innej niż sprawa - tekstowy opis grupy } <span class="ktag">opis</span>
+        </div>
+
+        
+        <div class="blockDef" id="Tematyka">
+          <span class="definition">Tematyka</span> ::= <span class="ptag">tematyka</span> [ <span class="useHere">Przedmiot</span> ]*
+                      [ <span class="useHere">WspomnianaOsoba</span> ]* [ <span class="useHere">Miejsce</span> ]*
+                      [ <span class="useHere">DatyZakres</span> ]* [ <span class="useHere">Odbiorcy</span> ]*
+                      [ <span class="useHere">InnyTemat</span> ]* <span class="ktag">tematyka</span>
+        </div>
+
+        <div class="blockDef" id="Przedmiot">
+          <span class="definition">Przedmiot</span> ::= <span class="ptag">przedmiot</span> { określenie tematyki treści dokumentu
+                      na bardzo dużym poziomie ogólności, nie będące nazwą własną (tj. nie nazwą geograficzną, osoby,
+                      obiektu, ulicy, instytucji itp.) } <span class="ktag">przedmiot</span>
+        </div>
+
+        <div class="blockDef" id="WspomnianaOsoba">
+          <span class="definition">WspomnianaOsoba</span> ::= <span class="ptag">wspomnianaOsoba</span> { określenie osoby
+                      o której traktuje treść dokumentu } <span class="ktag">wspomnianaOsoba</span>
+        </div>
+
+        <div class="blockDef" id="Miejsce">
+          <span class="definition">Miejsce</span> ::= <span class="ptag">miejsce</span> { określenie obszaru administracyjnego
+                      lub obiektów geograficznych o których traktuje treść } <span class="ktag">miejsce</span>
+        </div>
+
+        <div class="blockDef" id="Odbiorcy">
+          <span class="definition">Odbiorcy</span> ::= <span class="ptag">odbiorcy</span> { kategorię (grupa) osób lub instytucji,
+                      dla których dany dokument jest
+                      przeznaczony (do których kierowana jest treść) } <span class="ptag">odbiorcy</span>
+        </div>
+
+        <div class="blockDef" id="InnyTemat">
+          <span class="definition">InnyTemat</span> ::= <span class="ptag">inne</span> <span class="ptag">klucz</span>
+                      <span class="useHere">Klucz</span> <span class="ktag">klucz</span>
+                      <span class="ptag">wartosc</span> <span class="useHere">WartośćKlucza</span>
+                      <span class="ktag">wartosc</span> <span class="ktag">inne</span>
+        </div>
+
+        <div class="blockDef" id="Klucz">
+          <span class="definition">Klucz</span> ::= { inna wskazówka dotycząca tematyki: słowo kluczowe. W danym dokumencie
+                      wartość powinna być unikatowa } 
+        </div>
+
+        <div class="blockDef" id="WartośćKlucza">
+          <span class="definition">WartośćKlucza</span> ::= { ciąg znaków będący wartością klucza. W danym dokumencie para
+                      "Klucz" — "WartośćKlucza" powinna być unikatowa }
+        </div>
+
+        
+        <div class="blockDef" id="Uprawnienia">
+          <span class="definition">Uprawnienia</span> ::= <span class="ptag">uprawnienia</span>
+                      <span class="useHere">OpisUprawnień</span> <span class="ktag">uprawnienia</span>
+        </div>
+
+        <div class="blockDef" id="OpisUprawnień">
+          <span class="definition">OpisUprawnień</span> ::= { wskazanie podmiotu uprawnionego do dysponowania treścią dokumentu }
+        </div>
+
+        
+        <div class="blockDef" id="Podmiot">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">Podmiot</span> ::= <span class="ptag">podmiot</span>
+            </td>
+            <td>
+              <hr width="1" size="70"/>
+            </td>
+            <td>
+              <table class="raw">
+                <tr><td><span class="useHere">Osoba</span></td></tr>
+                <tr><td><span class="useHere">Instytucja</span></td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="70"/>
+            </td>
+            <td>
+              <span class="ktag">podmiot</span>
+            </td>
+          </tr></table>
+        </div>
+
+       
+        <div class="blockDef" id="Osoba">
+          <span class="definition">Osoba</span> ::= <span class="ptag">osoba</span> [ <span class="useHere">IdOsoby</span> ]*
+                      <span class="useHere">Nazwisko</span> [ <span class="useHere">Imię</span> ]*
+                      [ <span class="useHere">Adres</span> ]* [ <span class="useHere">Kontakt</span> ]* <span class="ktag">osoba</span>
+        </div>
+
+
+         <div class="blockDef" id="IdOsoby">
+          <span class="definition">IdOsoby</span> ::= <span class="pptag">id</span>
+                      <span class="attrib"></span><span class="raw">typId=</span>"<span class="useHere">TypIdOsoby</span>"
+                      <span class="pktag"></span> <span class="useHere">WartośćIdOsoby</span> <span class="ktag">id</span>
+        </div>
+
+        <div class="blockDef" id="TypIdOsoby">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">TypIdOsoby</span> ::=
+            </td>
+            <td>
+              <hr width="1" size="100"/>
+            </td>
+            <td>
+              <table class="raw">
+                <tr><td>PESEL</td></tr>
+                <tr><td>NIP</td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="100"/>
+            </td>
+          </tr></table>
+        </div>
+
+
+        <div class="blockDef" id="WartośćIdOsoby">
+          <span class="definition">WartośćIdOsoby</span> ::= { zgodnie ze standardem określonym przez atrybut typIdOsoby }
+        </div>
+
+        <div class="blockDef" id="Nazwisko">
+          <span class="definition">Nazwisko</span> ::= <span class="ptag">nazwisko</span> { zapis nazwiska ... }
+                      <span class="ktag">nazwisko</span>
+        </div>
+
+        <div class="blockDef" id="Imię">
+          <span class="definition">Imię</span> ::= <span class="ptag">imie</span> { zapis imienia ... } <span class="ktag">imie</span>
+        </div>
+
+        <div class="blockDef" id="Kontakt">
+          <span class="definition">Kontakt</span> ::= <span class="ptag">kontakt
+                      typKontaktu="<span class="useHere">TypKontaktu</span>"</span>
+                      <span class="useHere">WartośćKontaktu</span> <span class="ktag">kontakt</span>
+        </div>
+
+        <div class="blockDef" id="TypKontaktu">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">TypKontaktu</span> ::=
+            </td>
+            <td>
+              <hr width="1" size="130"/>
+            </td>
+            <td>
+              <table class="raw">
+                <tr><td>telefon</td></tr>
+                <tr><td>faks</td></tr>
+                <tr><td>email</td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="130"/>
+            </td>
+          </tr></table>
+        </div>
+
+        <div class="blockDef" id="WartośćKontaktu">
+          <span class="definition">WartośćKontaktu</span> ::= { zgodnie ze standardem określonym przez atrybut typKontaktu }
+        </div>
+
+        
+        <div class="blockDef" id="Instytucja">
+          <span class="definition">Instytucja</span> ::= <span class="ptag">instytucja</span>
+                      [ <span class="useHere">IdInstytucji</span> ]* <span class="useHere">Nazwa</span>
+                      [ <span class="useHere">Adres</span> ]* [ <span class="useHere">Kontakt</span> ]*
+                      [ <span class="useHere">Komórka</span> ] [ <span class="useHere">Pracownik</span> ]
+                      <span class="ktag">instytucja</span>
+        </div>
+
+        <div class="blockDef" id="IdInstytucji">
+          <span class="definition">IdInstytucji</span> ::= <span class="ptag">id typId="<span class="useHere">TypIdInstytucji</span>"</span>
+                      <span class="useHere">WartośćIdInstytucji</span> <span class="ktag">id</span>
+        </div>
+
+        <div class="blockDef" id="TypIdInstytucji">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">TypIdInstytucji</span> ::=
+            </td>
+            <td>
+              <hr width="1" size="130"/>
+            </td>
+            <td>
+              <table class="raw">
+                <tr><td>NIP</td></tr>
+                <tr><td>KRS</td></tr>
+                <tr><td>REGON</td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="130"/>
+            </td>
+          </tr></table>
+        </div>
+
+        <div class="blockDef" id="WartośćIdInstytucji">
+          <span class="definition">WartośćIdInstytucji</span> ::= { zgodnie ze standardem określonym przez atrybut typIdInstytucji }
+        </div>
+
+        <div class="blockDef" id="Nazwa">
+          <span class="definition">Nazwa</span> ::= <span class="ptag">nazwa</span> { nazwa instytucji lub komórki,
+                      zależnie od kontekstu } <span class="ktag">nazwa</span>
+        </div>
+
+        
+        <div class="blockDef" id="Komórka">
+          <span class="definition">Komórka</span> ::= <span class="ptag">komorka</span>  <span class="useHere">Nazwa</span>
+                      [ <span class="useHere">Adres</span> ] [ <span class="useHere">Kontakt</span> ]*
+                      [ <span class="useHere">Komórka</span> ] [ <span class="useHere">Pracownik</span> ]
+                      <span class="ktag">komorka</span>
+        </div>
+
+        
+        <div class="blockDef" id="Pracownik">
+          <span class="definition">Pracownik</span> ::= <span class="ptag">pracownik</span> <span class="useHere">Nazwisko</span>
+                      [ <span class="useHere">Imię</span> ]* [ <span class="useHere">Kontakt</span> ]*
+                      [ <span class="useHere">Stanowisko</span> ] <span class="ktag">pracownik</span>
+        </div>
+
+        <div class="blockDef" id="Stanowisko">
+          <span class="definition">Stanowisko</span> ::= <span class="ptag">stanowisko</span> { nazwa stanowiska pracownika }
+                      <span class="ktag">stanowisko</span>
+        </div>
+
+        
+        <div class="blockDef" id="Adres">
+          <span class="definition">Adres</span> ::= <span class="ptag">adres</span> [ <span class="useHere">KodPocztowy</span> ]
+                      [ <span class="useHere">Poczta</span> ] <span class="useHere">Miejscowość</span>
+                      [ <span class="useHere">Ulica</span> ]
+                      [ <span class="useHere">Budynek</span> ] [ <span class="useHere">Lokal</span> ]
+                      [ <span class="useHere">SkrytkaPocztowa</span> ] [ <span class="useHere">Uwagi</span> ]
+                      <span class="useHere">Kraj</span> <span class="ktag">adres</span>
+        </div>
+
+        <div class="blockDef" id="KodPocztowy">
+          <span class="definition">KodPocztowy</span> ::= <span class="ptag">kodPocztowy</span> { wartość kodu pocztowego }
+                      <span class="ktag">kodPocztowy</span>
+        </div>
+
+        <div class="blockDef" id="Poczta">
+          <span class="definition">Poczta</span> ::= <span class="ptag">poczta</span> { nazwa miejscowości - siedziby
+                      urzędu pocztowego } <span class="ktag">poczta</span>
+        </div>
+
+        <div class="blockDef" id="Miejscowość">
+          <span class="definition">Miejscowość</span> ::= <span class="ptag">miejscowosc</span> { nazwa miejscowości }
+                      <span class="ktag"> miejscowosc</span>
+        </div>
+
+        <div class="blockDef" id="Ulica">
+          <span class="definition">Ulica</span> ::= <span class="ptag">ulica</span> { nazwa ulicy, placu lub innego obiektu
+                      precyzującego miejsce w miejscowości  } <span class="ktag">ulica</span>
+        </div>
+
+        <div class="blockDef" id="Budynek">
+          <span class="definition">Budynek</span> ::= <span class="ptag">budynek</span> { numer budynku lub przy ulicy lub placu lub numer
+                      budynku w miejscowości } <span class="ktag">budynek</span>
+        </div>
+
+        <div class="blockDef" id="Lokal">
+          <span class="definition">Lokal</span> ::= <span class="ptag">lokal</span> { numer lokalu w budynku }
+                      <span class="ktag">lokal</span>
+        </div>
+
+        <div class="blockDef" id="SkrytkaPocztowa">
+          <span class="definition">SkrytkaPocztowa</span> ::= <span class="ptag">skrytkaPocztowa</span>
+                      { skrytka w urzędzie pocztowym } <span class="ktag">skrytkaPocztowa</span>
+        </div>
+
+        <div class="blockDef" id="Kraj">
+          <span class="definition">Kraj</span> ::= <span class="ptag">kraj</span> { składnik określający kraj }
+                      <span class="ktag">kraj</span>
+        </div>
+
+        <div class="blockDef" id="Czas">
+          <span class="definition">Czas</span> ::= <span class="useHere">Rok</span> [ - <span class="useHere">Miesiąc</span>
+                      [ - <span class="useHere">Dzień</span>
+                      [ T <span class="useHere">Godzina</span> [ : <span class="useHere">Minuta</span>
+                      [ : <span class="useHere">Sekunda</span> [ . <span class="useHere">SetneSekundy</span>
+                      [ <span class="useHere">PlusMinus</span> <span class="useHere">Godzina</span>
+                      [ : <span class="useHere">Minuta</span> ] ] ] ] ] ] ] ]
+        </div>
+
+        <div class="blockDef" id="Rok">
+          <span class="definition">Rok</span> ::= { czerocyfrowy zapis roku }
+        </div>
+
+        <div class="blockDef" id="Miesiąc">
+          <span class="definition">Miesiąc</span> ::= { dwucyfrowy zapis miesiąca }
+        </div>
+
+        <div class="blockDef" id="Dzień">
+          <span class="definition">Dzień</span> ::= { dwucyfrowy zapis dnia miesiąca }
+        </div>
+
+        <div class="blockDef" id="Godzina">
+          <span class="definition">Godzina</span> ::= { dwucyfrowy zapis godziny }
+        </div>
+
+        <div class="blockDef" id="Minuta">
+          <span class="definition">Minuta</span> ::= { dwucyfrowy zapis minut }
+        </div>
+
+        <div class="blockDef" id="Sekunda">
+          <span class="definition">Sekunda</span> ::= { dwucyfrowy zapis sekund }
+        </div>
+
+        <div class="blockDef" id="SetneSekundy">
+          <span class="definition">SetneSekundy</span> ::= { dwucyfrowy zapis setnych części sekundy }
+        </div>
+
+        <div class="blockDef" id="PlusMinus">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">PlusMinus</span> ::=
+            </td>
+            <td>
+              <hr width="1" size="70"/>
+            </td>
+            <td>
+              <table>
+                <tr><td>+</td></tr>
+                <tr><td>—</td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="70"/>
+            </td>
+          </tr></table>
+        </div>
+
+        
+
+        
+        <h2>Słowniki elementarne</h2>
+
+        <div class="blockDef" id="RodzajTekstuNieUzyte">
+          <table border="0"><tr>
+            <td>
+              <span class="definition">RodzajTekstuNieUzyte</span> ::= <span class="ptag">rodzajTekstu</span>
+            </td>
+            <td>
+              <hr width="1" size="1000"/>
+            </td>
+            <td>
+              <table class="raw">
+                <tr><td>adnotacja</td></tr>
+                <tr><td>akt notarialny</td></tr>
+                <tr><td>decyzja</td></tr>
+                <tr><td>dekretacja</td></tr>
+                <tr><td>dokument księgowy</td></tr>
+                <tr><td>informacja</td></tr>
+                <tr><td>interpretacja podatkowa</td></tr>
+                <tr><td>inne pismo/dokument</td></tr>
+                <tr><td>inny środek zaskarżenia</td></tr>
+                <tr><td>koperta</td></tr>
+                <tr><td>notatka</td></tr>
+                <tr><td>odwołanie</td></tr>
+                <tr><td>opinia</td></tr>
+                <tr><td>oświadczenie</td></tr>
+                <tr><td>pełnomocnictwo</td></tr>
+                <tr><td>plan/projekt</td></tr>
+                <tr><td>podanie/wniosek</td></tr>
+                <tr><td>podpis elektroniczny</td></tr>
+                <tr><td>postanowienie</td></tr>
+                <tr><td>potwierdzenie odbioru/doręczenia/przedłożenia</td></tr>
+                <tr><td>protokół</td></tr>
+                <tr><td>raport</td></tr>
+                <tr><td>rejestr/ewidencja</td></tr>
+                <tr><td>rozstrzygnięcie nadzorcze</td></tr>
+                <tr><td>rozporządzenie</td></tr>
+                <tr><td>sprzeciw</td></tr>
+                <tr><td>tytuł wykonawczy</td></tr>
+                <tr><td>skarga</td></tr>
+                <tr><td>uchwała</td></tr>
+                <tr><td>ugoda administracyjna</td></tr>
+                <tr><td>umowa</td></tr>
+                <tr><td>upoważnienie</td></tr>
+                <tr><td>wezwanie</td></tr>
+                <tr><td>wyrok</td></tr>
+                <tr><td>zarządzenie</td></tr>
+                <tr><td>zaświadczenie</td></tr>
+                <tr><td>zawiadomienie</td></tr>
+                <tr><td>zażalenie</td></tr>
+                <tr><td>zeznanie</td></tr>
+                <tr><td>zgłoszenie</td></tr>
+              </table>
+            </td>
+            <td>
+              <hr width="1" size="1000"/>
+            </td>
+            <td>
+              <span class="ktag">rodzajTekstu</span>
+            </td>
+          </tr></table>
+        </div>
+
+        
+        <h2>Elementy podstawowe</h2>
+
+        <div class="blockDef" id="Tekst">
+          <span class="definition">Tekst</span> ::= { niepusty łańcuch znaków }
+        </div>
+
+        <div class="blockDef" id="KodJęzyka">
+          <span class="definition">KodJęzyka</span> ::= { kod języka naturalnego zgodnie ze standardem ISO-639-2 }
+        </div>
+
+        <div class="blockDef" id="FormatElektroniczny">
+          <span class="definition">FormatElektroniczny</span> ::= { format wymieniony w Rozporządzeniu Rady Ministrów
+                      z dnia 12 kwietnia 2012 r. w sprawie Krajowych Ram Interoperacyjności, np. eml, doc, xml, pdf }
+        </div>
+
+        <div class="blockDef" id="FormatFizyczny">
+          <span class="definition">FormatFizyczny</span> ::= { format fizycznego dokumentu, np. A4, pamięć USB, płyta, VHS }
+        </div>
+
+        <div class="blockDef" id="FormatInny">
+          <span class="definition">FormatInny</span> ::= { opis nietypowego formatu dokumentu }
+        </div>
+
+        <div class="blockDef" id="MiaraWielkości">
+          <span class="definition">MiaraWielkości</span> ::= { określenie jednostki specyfikacji formatu, np. kB, strona, minuta }
+        </div>
+
+        <div class="blockDef" id="Klasa">
+          <span class="definition">Klasa</span> ::= <span class="ptag">klasa</span> { określenie typu dokumentu na bardzo
+                      ogólnym poziomie (np. tekst, dźwięk, obraz, obraz ruchomy itd) } <span class="ktag">klasa</span>
+        </div>
+
+        <div class="blockDef" id="Rodzaj">
+          <span class="definition">Rodzaj</span> ::= <span class="ptag">rodzaj</span> { określenie typu dokumentu w ramach klasy;
+                      ta definicja powinna być rozbita na różne, właściwe dla swej klasy } <span class="ktag">rodzaj</span>
+        </div>
+
+        <div class="blockDef" id="TypGrupy">
+          <span class="definition">TypGrupy</span> ::= <span class="ptag">typGrupy</span> { określenie typu grupy dokumentów
+                      np. sprawa, rejestr umów, rejestr skarg i wniosków itd. } <span class="ktag">typGrupy</span>
+        </div>
+
+        <div class="blockDef" id="KodGrupy">
+          <span class="definition">KodGrupy</span> ::= <span class="ptag">kodGrupy</span> { numer albo ciąg znaków będący
+                      identyfikatorem grupy dokumentów. W danym kontekście (miejscu w strukturze obiegu dokumentów)
+                      wartość powinna być unikatowa } <span class="ktag">kodGrupy</span>
+        </div>
+
+        <div class="blockDef" id="NazwaJęzyka">
+          <span class="definition">NazwaJęzyka</span> ::= { nazwa języka; podawać tylko w przypadku, gdy KodJęzyka nie jest jednoznaczny }
+        </div>
+
+        <div class="blockDef" id="Lokalizacja">
+          <span class="definition">Lokalizacja</span> ::= <span class="ptag">lokalizacja</span> { lokalizacja dokumentu - do usunięcia ? }
+                      <span class="ktag">lokalizacja</span>
+        </div>
+
+        <div class="blockDef" id="Status">
+          <span class="definition">Status</span> ::= <span class="ptag">status</span> { status dokumentu - pole do usunięcia ? }
+                      <span class="ktag">status</span>
+        </div>
+
+        <div class="blockDef" id="DataDnia">
+          <span class="definition">DataDnia</span> ::= <span class="ptag">data</span> <span class="useHere">Rok</span>
+                      - <span class="useHere">Miesiąc</span> - <span class="useHere">Dzień</span>
+                      <span class="ktag">data</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <script>
+
+      function setTagsOnClicks (span_class, js_call ) {
+          var all_span = document.getElementsByTagName("span");
+          for (var i=0, max=all_span.length; i < max; i++) {
+              var elem = all_span[i];
+              if ( elem.className == span_class ) {
+                  elem.setAttribute("onClick",js_call);
+              }
+          }
+      }
+
+      function appendDivToAllDefinitionStruct(main_div_class, new_tag, new_tag_attr, new_tag_attr_value ) {
+          var all = document.getElementsByClassName(main_div_class);
+          for (var i=0, max=all.length; i < max; i++) {
+              var node = document.createElement(new_tag);
+              node.setAttribute(new_tag_attr,new_tag_attr_value);
+              all[i].appendChild(node);
+          }
+      }
+
+      function getProperDefObj ( id ) {
+          var definition = null;
+          var all = document.getElementsByTagName("div");
+          for (var i=0, max=all.length; i < max; i++) {
+              var elem = all[i];
+              if ( elem.className == "blockDef" ) {
+                  if ( elem.getAttribute("id") == id ) {
+                      definition = elem;
+                      break;
+                  }
+              }
+          }
+          return definition;
+      }
+
+      function getUsingDefObjs ( name ) {
+          var definitions = [ ];
+          var all = document.getElementsByTagName("div");
+          for (var i=0, all_max=all.length; i < all_max; i++) {
+              var elem = all[i];
+              if ( elem.className == 'blockDef' ) {
+                  var uses_in_elem = elem.getElementsByTagName("span");
+                  for (var j=0, uses_max=uses_in_elem.length; j < uses_max; j++) {
+                      var child = uses_in_elem[j];
+                      if ( child.className == "useHere"  &&
+                           child.innerText == name         ) {
+                          definitions.push(elem);
+                          break;
+                      }
+                  }
+              }
+          }
+          return definitions;
+      }
+
+      function getExpandDiv ( elem ) {
+          var expand_div = null;
+          var parent_obj = elem.parentNode;
+          while ( parent_obj ) {
+              if ( parent_obj.className == 'expandDiv' ) {
+                  expand_div = parent_obj;
+                  break;
+              }
+              else if ( parent_obj.localName == 'div' &&
+                        parent_obj.className == 'blockDef' ) {
+                  var all = parent_obj.getElementsByTagName("div");
+                  for (var i=0, all_max=all.length; i < all_max; i++) {
+                      if ( all[i].className == 'expandDiv' ) {
+                          expand_div = all[i];
+                          break;
+                      }
+                  }
+                  parent_obj = null;
+                  break;
+              }
+              parent_obj = parent_obj.parentNode;
+          }
+          return expand_div;
+      }
+
+      function getUpExpandDiv ( elem ) {
+          var expand_div = null;
+          var parent_obj = elem.parentNode;
+          while ( parent_obj ) {
+              if ( parent_obj.className == 'expandDiv' ) {
+                  expand_div = parent_obj;
+                  break;
+              }
+              parent_obj = parent_obj.parentNode;
+          }
+          return expand_div;
+      }
+
+      function closeRecalledDef ( elem ) {
+          var place = getUpExpandDiv(elem);
+          if ( place )
+              place.innerHTML = '';
+          return;
+      }
+
+      function recalledDefHtml ( elem ) {
+          var html = '<div class="recalledDef">' + getDefHtml(elem) + 
+                     '<button onClick="closeRecalledDef(this);">Schowaj</button></div>';
+          return html;
+      }
+
+      function getDefHtml ( elem ) {
+          var html = '';
+          var expandDivObj = null;
+          var children = elem.children;
+          for (var j=0, child_max=children.length; j < child_max; j++) {
+              var child = children[j];
+              if (child.className == 'expandDiv' ) {
+                  expandDivObj = child;
+                  break;
+              }
+          }
+          if ( expandDivObj ) {
+              var store = expandDivObj.innerHTML;
+              expandDivObj.innerHTML = '';
+              html = elem.innerHTML;
+              expandDivObj.innerHTML = store;
+          }
+          else {
+              html = elem.innerHTML;
+          }
+          return html;
+      }
+
+      function recalledUsingDefHtml ( elems ) {
+          var html = '<div class="usingDef">';
+          var max=elems.length;
+          if ( max ) {
+              for (var i=0; i < max; i++)
+                  html += "\n" + getDefHtml(elems[i]);
+          }
+          else {
+              html += '<p>NIE JEST UŻYTY W INNYCH DEFINICJACH</p>';
+          }
+          html += "\n" + '<button onClick="closeRecalledDef(this);">Schowaj</button></div>';
+          return html;
+      }
+
+      function showDef(elem, status=true) {
+          var id = elem.innerText;
+          var expand_div = getExpandDiv(elem);
+          if ( expand_div ) {
+              expand_div.innerHTML = '';
+              var target_definition_elem = getProperDefObj(id);
+              if  ( target_definition_elem )
+                  expand_div.innerHTML = recalledDefHtml(target_definition_elem);
+          }
+      }
+
+      function showUse(elem, status=true) {
+          var name = elem.innerText;
+          var expand_div = getExpandDiv(elem);
+          if ( expand_div ) {
+              expand_div.innerHTML = '';
+              var definitions = getUsingDefObjs(name);
+              if  ( definitions )
+                  expand_div.innerHTML = recalledUsingDefHtml(definitions);
+          }
+      }
+
+      function turnOnOffXML(on_off) {
+          var tagvalue = on_off ? 'inline' : 'none';
+          var span_classes = [ 'ptag', 'ktag', 'pptag', 'pktag'];
+          span_classes.forEach( function(span_class) {
+              var all = document.getElementsByTagName('span');
+              for (var i=0, max=all.length; i < max; i++)
+                  if ( all[i].className == span_class )
+                      all[i].setAttribute('style','display:'+tagvalue);
+          })
+          var rawvalue = on_off ? 'none' : 'inline';
+          var rawtags = [ 'attrib' ];
+          rawtags.forEach( function(span_class) {
+              var all = document.getElementsByTagName('span');
+              for (var i=0, max=all.length; i < max; i++)
+                  if ( all[i].className == span_class )
+                      all[i].setAttribute('style','display:'+rawvalue);
+          })
+      }
+
+      function turnAccordinglyXMLSyntax() {
+          var elem = document.getElementById('ShowXMLOnOff');
+          turnOnOffXML(elem.checked);
+      }
+
+      function turnOnOffHelp(on_off) {
+          // on_off == true - show
+          //          false - hide
+          //      undefined - trigger
+          var helpwnd = document.getElementById('HelpWindow');
+          if ( on_off === undefined )
+              on_off = helpwnd.style.display == 'none';
+          var tagvalue = on_off ? '' : 'none';
+          helpwnd.setAttribute('style','display:'+tagvalue);
+      }
+
+      // Initialization:
+      // - adding <div> at the end of each 'blockDef' element; these places will be used to display onClick, the related definitions
+      // - adding "showDef(...)" onClick calls to each 'useHere'
+      // - adding "showUse(...)" onClick calls to each 'definition'
+      function initialize() {
+          appendDivToAllDefinitionStruct("blockDef", 'div', 'class', "expandDiv");
+          setTagsOnClicks("useHere"   , "javascript:showDef(this);");
+          setTagsOnClicks("definition", "javascript:showUse(this);");
+          turnAccordinglyXMLSyntax();
+          turnOnOffHelp(false);
+      }
+
+    </script>
+  </body>
+</html>
+

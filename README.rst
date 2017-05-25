@@ -15,6 +15,7 @@ Spis dokumentów
 * `Wymienialność metod uwierzytelniania <wymienialnosc-metod-uwierzytelniania.rst>`_
 * `Nienaruszalność danych w systemie EZD <nienaruszalnosc-danych.rst>`_
 * `Format danych EZD <format-danych-ezd.rst>`_
+* `Zapis propozycji nowej budowy metadanych Niezbędnych Elementów Struktury (NES) dokumentów elektronicznych <nes_bnf_komentarz.md>`_
 * `Zasady konstrukcji API <zasady-konstrukcji-api.rst>`_
 * `Decyzje programistyczne — platforma aplikacje.gov.pl <decyzje-programistyczne.rst>`_
 * `Eksperymenty programistyczne na eDoku 4 <eksperymenty-programistyczne-na-edoku4.rst>`_
